@@ -1,0 +1,50 @@
+******************************** ExcelTool 使用文档 ********************************
+注意：目前二进制和 Json 读 Excel 表，都仅支持基础类型：int,float,bool,string
+
+配置表读取按键位置:
+Unity 编辑器菜单栏中的 GameTool
+
+1.Excel 文件放置在Assets/ArtRes/Excel 中
+如果想要修改文件存放路径 可以修改 ExcelTool 脚本中的 EXCEL_PATH 路径变量
+2.配置表规则
+	第一行：字段名(如修改规则，请更改 ExcelTool 脚本中的 BEGIN_VARIABLE_NAME_INDEX 变量)
+	第二行：字段类型(字段类型支持：int,float,bool,string)
+	如需增加新的字段类型读写规则，请在任务列表中找到对应的位置添加对应字段类型处理规则即可
+	(如修改规则，请更改 ExcelTool 脚本中的 BEGIN_VARIABLE_TYPE_INDEX 变量)
+	第三行：主键(key)，通过key来标识唯一主键(Json文件默认 id 为主键，不以自定义key为规则)
+	(如修改规则，请更改 ExcelTool 脚本中的 BEGIN_KEY_INDEX 变量)
+	第四行：描述信息(可选：增加注释，便于阅读理解)
+	(如修改规则，请更改 ExcelTool 脚本中的 BEGIN_DESCRIPTION_INDEX 变量)
+	第五行~第n行：具体数据信息
+	Excel 下的表名决定数据结构类名，容器类名，二进制文件名
+	(如修改规则，请更改 ExcelTool 脚本中的 BEGIN_INDEX 变量)
+3.生成容器类和数据结构类的路径可以在 ExcelTool 脚本中修改 DATA_CLASS_PATH 和 DATA_CONTAINER_PATH 变量进行更改
+
+************************************ 二进制 ************************************
+4.生成和读取二进制配置表文件路径 可以修改 ExcelTool 和 BinaryDataMgr 脚本中的 DATA_BINARY_PATH 变量进行更改
+5.持久化数据存储路径 可修改 BinaryDataMgr 脚本中的 PERSISTENT_DATA_BINARY_PATH 变量进行更改
+6.读取配置表初始化数据 请在 BinaryDataMgr 脚本中的 InitData() 函数中进行相应数据表规则读取即可(外部需在游戏启动时候调用一次此函数)
+例:LoadTable<PlayerInfo, PlayerInfoContainer>();
+LoadTable<数据结构类类名(配置表名), 数据容器类类名>();
+
+************************************ Json ************************************
+4.生成和读取 Json 配置表文件路径 可以修改 ExcelTool 和 JsonDataMgr 脚本中的 DATA_JSON_PATH 变量进行更改
+5.持久化数据存储路径 可修改 JsonDataMgr 脚本中的 PERSISTENT_DATA_JSON_PATH 变量进行更改
+6.读取配置表初始化数据 请在 JsonDataMgr 脚本中的 InitData() 函数中进行相应数据表规则读取即可(外部需在游戏启动时候调用一次此函数)
+例:LoadTable<PlayerInfo>();
+LoadTable<数据结构类类名(配置表名)>();
+注意:Json 默认不生成数据容器类，如需要生成，可自行修改代码
+
+************************************ ScriptableObject ************************************
+4.ExcelTool脚本文件的525行可以对生成的SO文件名规则进行修改 默认情况下是找到配置表中的该表的"表名+name"字段对SO文件进行命名
+  例如有一张表是 Skill 这张表中有一个数据字段为SkillName(不区分大小写 判断时均转为小写进行判断是否存在该字段) 则生成的SO文件就为这个字段的值命名
+  否则 以 New Skill + index 进行命名
+5.如果使用了Odin插件 第四行的描述信息就是 Inspector 窗口显示的字段信息
+6.如果存在枚举字段时 类型填"enum" 字段名为枚举类名
+7.Sprite字段 值输入Assets下的资源相对路径 可省略Assets/
+
+************************************ 枚举类 ************************************
+1.Excel表的每一张表的表名必须是"Enum_XXX" 生成的枚举类名会自动替换成"E_XXX" 只要符合这个规则命名的表都将不会生成数据类而是生成枚举类
+2.可以使用按钮"读取路径中的所有Excel配置数据表"同时生成枚举类 也可单独使用"生成枚举类脚本"单独生成Excel对应的枚举类
+3.Excel表配表规则: 第一行为字段描述 如id 字段名 枚举描述 将不会被读取
+4.Excel表的第二行开始读取生成枚举字段 第一列为枚举字段对应的枚举int值(切记从大到小配置) 第二列是枚举字段名 第三列为枚举///注释描述 第三列后不再读取 可以随意使用来作为辅助字段描述 
