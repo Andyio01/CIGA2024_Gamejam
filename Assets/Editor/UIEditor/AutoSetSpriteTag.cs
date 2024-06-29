@@ -40,11 +40,27 @@ public static class EditorSpriteSaveInfo
 
     private static bool IsIgnorePath(string path)
     {
+        AssetDatabase.AssetPathToGUID(path);
         if (string.IsNullOrEmpty(path))
         {
-            return false;
+            return true;
         }
-        return !path.StartsWith("Assets/ArtRes");
+
+        if (path.StartsWith("Assets/ArtRes/"))
+        {
+            if (path.EndsWith(".png"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return true;
+        }
     }
 
     public static void OnImportSprite(string path)

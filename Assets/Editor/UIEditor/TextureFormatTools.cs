@@ -15,6 +15,7 @@ public class TextureFormatTools
             {
                 ti.textureType = TextureImporterType.Sprite;
                 ti.mipmapEnabled = false;
+                ti.SaveAndReimport();
             }
         }
     }
