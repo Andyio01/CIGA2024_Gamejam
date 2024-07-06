@@ -40,10 +40,10 @@ namespace QZGameFramework.MusicManager
             musicMgrObj = obj;
             soundList = new List<AudioSource>(10);
             MusicData musicData = GameDataMgr.Instance.musicData;
-            MusicMgr.Instance.ChangeGameMusicVolume(musicData.musicVolume);
+            //MusicMgr.Instance.ChangeGameMusicVolume(musicData.musicVolume);
             MusicMgr.Instance.SetGameMusicMute(musicData.musicOn);
-            MusicMgr.Instance.ChangeSoundMusicVolume(musicData.soundVolume);
-            MusicMgr.Instance.SetSoundMusicMute(musicData.soundOn);
+            //MusicMgr.Instance.ChangeSoundMusicVolume(musicData.soundVolume);
+            //MusicMgr.Instance.SetSoundMusicMute(musicData.soundOn);
         }
 
         #region 游戏背景音乐

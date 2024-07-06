@@ -75,12 +75,13 @@ public class GameMainWindow : WindowBase
 
     public void OnSettingButtonClick()
     {
-        UIManager.Instance.ShowWindow<SettingWindow>();
+        //UIManager.Instance.ShowWindow<SettingWindow>();
     }
 
     public void OnMainMenuButtonClick()
     {
         HideWindow();
+
         SceneMgr.LoadScene("BeginScene");
     }
 
