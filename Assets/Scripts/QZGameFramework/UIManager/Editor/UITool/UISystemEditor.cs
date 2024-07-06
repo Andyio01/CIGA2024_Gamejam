@@ -90,11 +90,11 @@ namespace QZGameFramework.UIManager
                         toggle.navigation = navigation;
                     }
 
-                    Image[] images = obj.GetComponentsInChildren<Image>();
-                    if (images != null && images.Length >= 2)
-                    {
-                        images[1].raycastTarget = false; ;
-                    }
+                    //Image[] images = obj.GetComponentsInChildren<Image>();
+                    //if (images != null && images.Length >= 2)
+                    //{
+                    //    images[1].raycastTarget = false; ;
+                    //}
                 }
                 else if (obj.name.Contains("Dropdown"))
                 {

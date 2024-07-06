@@ -21,9 +21,9 @@ public class GameDataMgr : Singleton<GameDataMgr>
     public void SaveMusicData()
     {
         JsonDataMgr.Instance.SaveData(musicData, "MusicData");
-        MusicMgr.Instance.ChangeGameMusicVolume(musicData.musicVolume);
+        //MusicMgr.Instance.ChangeGameMusicVolume(musicData.musicVolume);
         MusicMgr.Instance.SetGameMusicMute(musicData.musicOn);
-        MusicMgr.Instance.ChangeSoundMusicVolume(musicData.soundVolume);
-        MusicMgr.Instance.SetSoundMusicMute(musicData.soundOn);
+        //MusicMgr.Instance.ChangeSoundMusicVolume(musicData.soundVolume);
+        //MusicMgr.Instance.SetSoundMusicMute(musicData.soundOn);
     }
 }

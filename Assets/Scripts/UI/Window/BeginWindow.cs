@@ -11,11 +11,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using QZGameFramework.UIManager;
 using QZGameFramework.GFSceneManager;
+using QZGameFramework.PackageMgr.ResourcesManager;
 
 public class BeginWindow : WindowBase
 {
     // UI面板的组件类
     private BeginWindowDataComponent dataCompt;
+
+    private MusicData musicData;
 
     #region 生命周期函数
 
@@ -27,6 +30,9 @@ public class BeginWindow : WindowBase
         dataCompt = gameObject.GetComponent<BeginWindowDataComponent>();
         dataCompt.InitUIComponent(this);
         base.OnAwake();
+        dataCompt.CheckmarkImage.raycastTarget = true;
+        musicData = GameDataMgr.Instance.musicData;
+        dataCompt.MusicToggle.isOn = musicData.musicOn;
     }
 
     /// <summary>
@@ -61,6 +67,21 @@ public class BeginWindow : WindowBase
 
     #region UI组件事件
 
+    public void OnMusicToggleChange(bool state, Toggle toggle)
+    {
+        if (state)
+        {
+            dataCompt.CheckmarkImage.sprite = ResourcesMgr.Instance.LoadRes<Sprite>("UI/BeginWindow/music");
+        }
+        else
+        {
+            dataCompt.CheckmarkImage.sprite = ResourcesMgr.Instance.LoadRes<Sprite>("UI/BeginWindow/music0");
+        }
+        dataCompt.CheckmarkImage.SetNativeSize();
+        GameDataMgr.Instance.musicData.musicOn = state;
+        GameDataMgr.Instance.SaveMusicData();
+    }
+
     public void OnQuitGameButtonClick()
     {
 #if UNITY_EDITOR
@@ -68,11 +89,6 @@ public class BeginWindow : WindowBase
 #else
         Application.Quit();
 #endif
-    }
-
-    public void OnSettingButtonClick()
-    {
-        UIManager.Instance.ShowWindow<SettingWindow>();
     }
 
     public void OnStartGameButtonClick()
