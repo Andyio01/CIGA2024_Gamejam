@@ -6,6 +6,7 @@ public class MouseHover : MonoBehaviour
 {
     // Start is called before the first frame update
     private bool isMouseOver = false;
+    private LineRenderer currentLine;
     void Start()
     {
         
@@ -32,5 +33,10 @@ public class MouseHover : MonoBehaviour
     {
         Debug.Log("Mouse Exit");
         isMouseOver = false;
+    }
+
+    public void SetCurrentLine(LineRenderer line)
+    {
+        this.currentLine = line;
     }
 }

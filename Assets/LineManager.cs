@@ -29,6 +29,10 @@ public class LineManager : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         foreach (var lineRenderer in lineRenderers)
         {
+            if(lineRenderer == null)
+            {
+                continue;
+            }
             if (IsMouseOverLine(lineRenderer, mousePosition, threshold))
             {
                 Debug.Log("鼠标当前悬浮在直线 " + lineRenderer.gameObject.name + " 上");

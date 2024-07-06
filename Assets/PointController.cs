@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PointController : MonoBehaviour
 {
-    public bool isHit = false;
+    public bool isHit = true;
     private bool isMouseOver = false;
     // Start is called before the first frame update
     void Start()
@@ -34,17 +34,27 @@ public class PointController : MonoBehaviour
     //             }
     //         }
     //     }
-
+        // if(!GetComponentInChildren<LineRenderer>().enabled)
+        // {
+        // }
         if (!isHit)
         {
             // 没有前置光线时关闭LineRender
-            GetComponentInChildren<LineRenderer>().enabled = false;
+            if(gameObject.transform.tag != "Blocker") GetComponentInChildren<LineRenderer>().enabled = false;
+            // gameObject.GetComponent<LaserController>().SetLength(0.0f);
+            StartCoroutine(WaitAndDestroy(1f));
+            Debug.Log("No Hit");
         }
         else{
             // 有前置光线时开启LineRender
-            GetComponentInChildren<LineRenderer>().enabled = true;
+            if(gameObject.transform.tag != "Blocker") GetComponentInChildren<LineRenderer>().enabled = true;
+            // gameObject.GetComponent<LaserController>().SetLength(0.0f);
+            StopAllCoroutines();
+            Debug.Log("Hit");
         }
         isHit = false;
+
+        
     }
     // }
     // // 被射线击中时才激活自身的LineRender，获取其方向并旋转
@@ -61,6 +71,12 @@ public class PointController : MonoBehaviour
         // transform.right = direction;
     }
 
-    
+    IEnumerator WaitAndDestroy(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        Destroy(this.gameObject);
+        LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
+
+    }
     
 }

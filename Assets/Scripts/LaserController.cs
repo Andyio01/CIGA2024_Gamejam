@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 public class LaserController : MonoBehaviour
 {
     
-    public bool deadly;
+    public float length;
     private LineRenderer linerenderer;
     private float time;
     private float InitAngle;
@@ -78,7 +78,7 @@ public class LaserController : MonoBehaviour
         Vector2 direction = new Vector2(math.cos(rotationZ), math.sin(rotationZ));
 
 
-        float length = 100f;
+        length = 100f;
         float laserEndRotation = 180;
         Vector2 endPosition;
         linerenderer.positionCount = 1;
@@ -96,7 +96,7 @@ public class LaserController : MonoBehaviour
             //     }
             // Hit the point
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point") ) {
-                hit.transform.gameObject.GetComponent<PointController>().hitByLaser(direction.normalized);
+                hit.transform.gameObject.GetComponent<PointController>().hitByLaser(linerenderer);
             }
             // Hit the object that is not reflectable
             if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Reflectable")) {
@@ -195,5 +195,10 @@ public class LaserController : MonoBehaviour
        
         
 
+    }
+
+    public void SetLength(float length)
+    {
+        this.length = length;
     }
 }
