@@ -640,6 +640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockerPointer
       objectReference: {fileID: 0}
+    - target: {fileID: 3522185413815510875, guid: 27862d8322b7f5d4d91aed8870a861b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27862d8322b7f5d4d91aed8870a861b9, type: 3}
 --- !u!1 &1044930667
