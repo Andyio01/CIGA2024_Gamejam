@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Water
+  m_Shader: {fileID: -6465566751694194690, guid: 075444c73a41d90479a867f8623de2f4, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SampleTexture2D_5e84aa620c0b44ce9bc5af07c6624ea4_Texture_1:
+        m_Texture: {fileID: 8400000, guid: 09ad0100c3757e845aa700a39766acd4, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_62abad4b5499433db13466c7df5baa75_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 8dc8eaf65c10e98439660f72c38ee07a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6c1762e6b341441aa677764d23953b94_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 60034cbea02217d478211c55ef6091a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e40209b7a8a34a6092862a5fe4527b6d_Texture_1:
+        m_Texture: {fileID: 2800000, guid: cd96301d5381f9d4588f705e330beb07, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WaterRenderTex:
+        m_Texture: {fileID: 8400000, guid: 09ad0100c3757e845aa700a39766acd4, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Lerp: 0.415
+    - _MoveSpeed: 0.04
+    - _ReflectionStrength: 3.05
+    - _Refraction_Strength: 1.14
+    m_Colors:
+    - _Color: {r: 0.37169805, g: 0.75653285, b: 1, a: 1}
+  m_BuildTextureStacks: []
