@@ -61,7 +61,7 @@ public class PointController : MonoBehaviour
     // // private void OnCollisionEnter(Collision other) {
     // //     Debug.Log("Hited By:" + other.gameObject.name);
     // // }
-    public void hitByLaser(Vector2 direction)
+    public void hitByLaser(LineRenderer line)
     {
         isHit = true;
         // GetComponentInChildren<LineRenderer>().enabled = true;
@@ -69,6 +69,7 @@ public class PointController : MonoBehaviour
         // Vector3 direction = GetComponentInChildren<LineRenderer>().GetPosition(1) - GetComponentInChildren<LineRenderer>().GetPosition(0);
         // 旋转自身
         // transform.right = direction;
+        this.GetComponentInChildren<MouseHover>().SetCurrentLine(line);
     }
 
     IEnumerator WaitAndDestroy(float waitTime)

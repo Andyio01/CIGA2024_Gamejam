@@ -2127,6 +2127,10 @@ PrefabInstance:
       propertyPath: Line
       value: 
       objectReference: {fileID: 1844871125}
+    - target: {fileID: 7266642700516422981, guid: 844ad19bb7b3e6d4c9a8362c7fb0bb14, type: 3}
+      propertyPath: threshold
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 844ad19bb7b3e6d4c9a8362c7fb0bb14, type: 3}
 --- !u!1001 &9078937653396799516
