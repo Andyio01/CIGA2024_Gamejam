@@ -26,23 +26,30 @@ public class MouseHover : MonoBehaviour
         // {
         //     Debug.Log("current line: " + currentLine.transform.parent.transform.parent.gameObject.name);
         // }
-
+        
         if (Dragging)
         {
             // 获取旋转中心
             Transform pivot = currentLine.transform.parent.parent.gameObject.transform;
-
-            distance = Vector2.Distance(pivot.position, this.gameObject.transform.position);
+            Debug.Log("Pivot: " + pivot.position);
+            distance = Vector2.Distance(pivot.position, this.gameObject.transform.parent.position);
             Debug.Log("Distance: " + distance);
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)pivot.position).normalized;
-            transform.position = pivot.position + (Vector3)(direction * distance);  // 维持半径不变
+            transform.parent.position = pivot.position + (Vector3)(direction * distance);  // 维持半径不变
+            pivot.right = direction;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Dragging = false;
+            this.gameObject.transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 
     public void OnMouseEnter()
     {
         Debug.Log("Mouse Enter");
+        this.gameObject.transform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         isMouseOver = true;
         
     }
@@ -50,6 +57,7 @@ public class MouseHover : MonoBehaviour
     public void OnMouseExit()
     {
         Debug.Log("Mouse Exit");
+        this.gameObject.transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         isMouseOver = false;
     }
 
@@ -57,6 +65,8 @@ public class MouseHover : MonoBehaviour
     void OnMouseDrag()
     {
         Dragging = true;
+        this.gameObject.transform.parent.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
         Debug.Log("Dragging");
     }
 
