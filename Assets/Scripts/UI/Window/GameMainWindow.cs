@@ -80,8 +80,8 @@ public class GameMainWindow : WindowBase
 
     public void OnMainMenuButtonClick()
     {
-        SceneMgr.LoadScene("BeginScene");
         HideWindow();
+        SceneMgr.LoadScene("BeginScene");
     }
 
     #endregion
