@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Background_Mat
-  m_Shader: {fileID: 4800000, guid: c51e3c861f408494493ba5f24bdfbb55, type: 3}
+  m_Name: Exit_mat
+  m_Shader: {fileID: 4800000, guid: 02fbc4a523461854ca3d8023485ba1ee, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,8 +20,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Main:
+        m_Texture: {fileID: 2800000, guid: 5b737198f49d9f040b01ad83acef5a55, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TextureSample0:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 5b737198f49d9f040b01ad83acef5a55, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -31,5 +35,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Color0: {r: 0, g: 0, b: 0, a: 0}
+    - _Color0: {r: 0.44376567, g: 2.1455727, b: 0.43810117, a: 1}
   m_BuildTextureStacks: []
