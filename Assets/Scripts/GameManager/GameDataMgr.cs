@@ -1,3 +1,4 @@
+using QZGameFramework.MusicManager;
 using QZGameFramework.PersistenceDataMgr;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,5 +21,9 @@ public class GameDataMgr : Singleton<GameDataMgr>
     public void SaveMusicData()
     {
         JsonDataMgr.Instance.SaveData(musicData, "MusicData");
+        MusicMgr.Instance.ChangeGameMusicVolume(musicData.musicVolume);
+        MusicMgr.Instance.SetGameMusicMute(musicData.musicOn);
+        MusicMgr.Instance.ChangeSoundMusicVolume(musicData.soundVolume);
+        MusicMgr.Instance.SetSoundMusicMute(musicData.soundOn);
     }
 }
