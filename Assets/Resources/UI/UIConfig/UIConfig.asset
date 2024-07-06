@@ -16,6 +16,12 @@ MonoBehaviour:
   UI_PREFABS_PATH: /Resources/UI/
   windowRootArr:
   - Window
-  windowDataList: []
+  windowDataList:
+  - name: BeginWindow
+    path: UI/Window\BeginWindow
+  - name: GameMainWindow
+    path: UI/Window\GameMainWindow
+  - name: SettingWindow
+    path: UI/Window\SettingWindow
   UIWindowPrefabsSavePath: Assets/Resources/UI/Window
   UIRootPrefabsSavePath: Assets/Resources/UI
