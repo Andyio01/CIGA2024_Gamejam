@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PointController : MonoBehaviour
 {
-    private bool isHit = false;
+    public bool isHit = false;
+    private bool isMouseOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,7 +13,7 @@ public class PointController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
     //     // 判断鼠标右键是否被按下
     //     if (Input.GetMouseButtonDown(1)) // 1 是鼠标右键
@@ -50,13 +51,16 @@ public class PointController : MonoBehaviour
     // // private void OnCollisionEnter(Collision other) {
     // //     Debug.Log("Hited By:" + other.gameObject.name);
     // // }
-        public void hitByLaser(Vector2 direction)
-        {
-            isHit = true;
-            GetComponentInChildren<LineRenderer>().enabled = true;
-            // // 获取射线方向
-            // Vector3 direction = GetComponentInChildren<LineRenderer>().GetPosition(1) - GetComponentInChildren<LineRenderer>().GetPosition(0);
-            // 旋转自身
-            // transform.right = direction;
-        }
+    public void hitByLaser(Vector2 direction)
+    {
+        isHit = true;
+        // GetComponentInChildren<LineRenderer>().enabled = true;
+        // // 获取射线方向
+        // Vector3 direction = GetComponentInChildren<LineRenderer>().GetPosition(1) - GetComponentInChildren<LineRenderer>().GetPosition(0);
+        // 旋转自身
+        // transform.right = direction;
     }
+
+    
+    
+}

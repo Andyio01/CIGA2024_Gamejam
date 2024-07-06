@@ -95,7 +95,7 @@ public class LaserController : MonoBehaviour
             //         break;
             //     }
             // Hit the point
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point")) {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point") ) {
                 hit.transform.gameObject.GetComponent<PointController>().hitByLaser(direction.normalized);
             }
             // Hit the object that is not reflectable

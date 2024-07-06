@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enter_mat
+  m_Name: Enter_Mat
   m_Shader: {fileID: 4800000, guid: 02fbc4a523461854ca3d8023485ba1ee, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -35,5 +35,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Color0: {r: 2.0373142, g: 0.72250026, b: 0.6227262, a: 1}
+    - _Color0: {r: 1.1310579, g: 2.037314, b: 0.62932724, a: 1}
   m_BuildTextureStacks: []
