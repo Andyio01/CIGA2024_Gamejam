@@ -13,58 +13,70 @@ using QZGameFramework.UIManager;
 
 public class BeginWindow : WindowBase
 {
-	// UI面板的组件类
-	private BeginWindowDataComponent dataCompt;
+    // UI面板的组件类
+    private BeginWindowDataComponent dataCompt;
 
-	#region 生命周期函数
+    #region 生命周期函数
 
-	/// <summary>
-	/// 在物体显示时执行一次，与Mono Awake一致
-	/// </summary>
-	public override void OnAwake()
-	{
-		dataCompt=gameObject.GetComponent<BeginWindowDataComponent>();
-		dataCompt.InitUIComponent(this);
-		base.OnAwake();
-	}
+    /// <summary>
+    /// 在物体显示时执行一次，与Mono Awake一致
+    /// </summary>
+    public override void OnAwake()
+    {
+        dataCompt = gameObject.GetComponent<BeginWindowDataComponent>();
+        dataCompt.InitUIComponent(this);
+        base.OnAwake();
+    }
 
-	/// <summary>
-	/// 在物体显示时执行一次，与Mono OnEnable一致
-	/// </summary>
-	public override void OnShow()
-	{
-		base.OnShow();
-	}
+    /// <summary>
+    /// 在物体显示时执行一次，与Mono OnEnable一致
+    /// </summary>
+    public override void OnShow()
+    {
+        base.OnShow();
+    }
 
-	/// <summary>
-	/// 在物体隐藏时执行一次，与Mono OnDisable 一致
-	/// </summary>
-	public override void OnHide()
-	{
-		base.OnHide();
-	}
+    /// <summary>
+    /// 在物体隐藏时执行一次，与Mono OnDisable 一致
+    /// </summary>
+    public override void OnHide()
+    {
+        base.OnHide();
+    }
 
-	/// <summary>
-	///  在物体销毁时执行一次，与Mono OnDestroy一致
-	/// </summary>
-	public override void OnDestroy()
-	{
-		base.OnDestroy();
-	}
+    /// <summary>
+    ///  在物体销毁时执行一次，与Mono OnDestroy一致
+    /// </summary>
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+    }
 
-	#endregion
+    #endregion
 
-	#region Custom API Function
+    #region Custom API Function
 
+    #endregion
 
-	#endregion
+    #region UI组件事件
 
-	#region UI组件事件
+    public void OnQuitGameButtonClick()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 
-	public void OnCloseButtonClick()
-	{
-		HideWindow();
-	}
+    public void OnSettingButtonClick()
+    {
+        UIManager.Instance.ShowWindow<SettingWindow>();
+    }
 
-	#endregion
+    public void OnStartGameButtonClick()
+    {
+    }
+
+    #endregion
 }
