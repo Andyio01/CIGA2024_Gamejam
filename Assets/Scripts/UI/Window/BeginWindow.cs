@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using QZGameFramework.UIManager;
 using QZGameFramework.GFSceneManager;
 using QZGameFramework.PackageMgr.ResourcesManager;
+using QZGameFramework.PersistenceDataMgr;
 
 public class BeginWindow : WindowBase
 {
@@ -93,7 +94,7 @@ public class BeginWindow : WindowBase
 
     public void OnStartGameButtonClick()
     {
-        SceneMgr.LoadScene("Level01");
+        SceneMgr.LoadScene(BinaryDataMgr.Instance.GetTable<GlobalContainer>().GetData((int)E_Global.LEVEL_01).stringValue);
         HideWindow();
         //UIManager.Instance.ShowWindow<GameMainWindow>();
     }
