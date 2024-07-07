@@ -76,7 +76,7 @@ public class PointController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         Destroy(this.gameObject);
-        LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
+        // LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
 
     }
     

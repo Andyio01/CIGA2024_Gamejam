@@ -105,7 +105,7 @@ public class LineManager : MonoBehaviour
                 // 按左键添加实例点，并更改光线的起始点和终点
                 if(Input.GetMouseButtonDown(0)){
                     // 计算方向
-                    Vector3 direction = (end - start).normalized;
+                    Vector2 direction = (end - start).normalized;
                     GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
                     newPonit.transform.right = direction;
                     LineRenderer newLine = newPonit.GetComponentInChildren<LineRenderer>();

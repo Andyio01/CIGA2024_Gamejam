@@ -18,7 +18,7 @@ public class LaserController : MonoBehaviour
     private float InitAngle;
     private Vector2 StartPosition;
     public LayerMask layerMask;
-    [SerializeField] private ParticleSystem EmissionPoint;
+    public ParticleSystem EmissionPoint;
     [SerializeField] private GameObject startVFX;
     [SerializeField] private GameObject endVFX;
     // Control the rotation of the Launcher

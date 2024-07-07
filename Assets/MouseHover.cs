@@ -9,6 +9,7 @@ public class MouseHover : MonoBehaviour
     private bool Dragging = false;
     public float distance;  // 端点之间的距离
     private LineRenderer currentLine;
+    public bool IsBlocker;
     void Start()
     {
         
@@ -26,8 +27,25 @@ public class MouseHover : MonoBehaviour
         // {
         //     Debug.Log("current line: " + currentLine.transform.parent.transform.parent.gameObject.name);
         // }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Dragging = false;
+            // this.gameObject.transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
+        if (Dragging && IsBlocker)
+        {
+            Transform pivot = currentLine.transform.parent.parent.gameObject.transform;
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePosition - (Vector2)pivot.position).normalized;
+            pivot.gameObject.GetComponent<LaserController>().EmissionPoint.transform.position = pivot.position + (Vector3)(direction * 0.25f);
+            // pivot.right = direction;
+
+        }
+    }
+    private void FixedUpdate() {
         
-        if (Dragging)
+    
+        if (Dragging && IsBlocker)
         {
             // 获取旋转中心
             Transform pivot = currentLine.transform.parent.parent.gameObject.transform;
@@ -39,17 +57,14 @@ public class MouseHover : MonoBehaviour
             transform.parent.position = pivot.position + (Vector3)(direction * distance);  // 维持半径不变
             pivot.right = direction;
         }
-        if (Input.GetMouseButtonUp(0))
-        {
-            Dragging = false;
-            this.gameObject.transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        }
     }
+        
+    
 
     public void OnMouseEnter()
     {
         Debug.Log("Mouse Enter");
-        this.gameObject.transform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        // this.gameObject.transform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         isMouseOver = true;
         
     }
@@ -57,7 +72,7 @@ public class MouseHover : MonoBehaviour
     public void OnMouseExit()
     {
         Debug.Log("Mouse Exit");
-        this.gameObject.transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        // this.gameObject.transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         isMouseOver = false;
     }
 
@@ -65,7 +80,7 @@ public class MouseHover : MonoBehaviour
     void OnMouseDrag()
     {
         Dragging = true;
-        this.gameObject.transform.parent.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        // this.gameObject.transform.parent.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
         Debug.Log("Dragging");
     }
