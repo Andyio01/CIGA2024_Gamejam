@@ -26,7 +26,7 @@ public class LineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = CursorManager.Instance.GetMousePossition();;
         foreach (var lineRenderer in lineRenderers)
         {
             if(lineRenderer == null)
@@ -106,15 +106,34 @@ public class LineManager : MonoBehaviour
                 if(Input.GetMouseButtonDown(0)){
                     // 计算方向
                     Vector2 direction = (end - start).normalized;
-                    GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
-                    newPonit.transform.right = direction;
-                    LineRenderer newLine = newPonit.GetComponentInChildren<LineRenderer>();
-                    // newLine.SetPosition(0, newPonit.transform.position + new Vector3(1f, 0, 0));
-                    // Debug.Log("newPoint.position: " + newPonit.transform.position);
-                    // Debug.Log("newLine.position: " + newLine.transform.position);
-                    // newLine.SetPosition(1, end);
-
-                    AddLineRenderer(newLine);
+                    if(currentPointer.GetComponentInChildren<MouseHover>().IsBlocker && GameManager.BlockerNum > 0)
+                    {
+                        GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
+                        newPonit.transform.right = direction;
+                        LineRenderer newLine = newPonit.GetComponentInChildren<LineRenderer>();
+                        // newLine.SetPosition(0, newPonit.transform.position + new Vector3(1f, 0, 0));
+                        // Debug.Log("newPoint.position: " + newPonit.transform.position);
+                        // Debug.Log("newLine.position: " + newLine.transform.position);
+                        // newLine.SetPosition(1, end);
+                        GameManager.BlockerNum--;
+                        AddLineRenderer(newLine);
+                    }
+                    else if (!currentPointer.GetComponentInChildren<MouseHover>().IsBlocker && GameManager.DiffractionNum > 0){
+                        GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
+                        newPonit.transform.right = direction;
+                        LineRenderer newLine = newPonit.GetComponentInChildren<LineRenderer>();
+                        // newLine.SetPosition(0, newPonit.transform.position + new Vector3(1f, 0, 0));
+                        // Debug.Log("newPoint.position: " + newPonit.transform.position);
+                        // Debug.Log("newLine.position: " + newLine.transform.position);
+                        // newLine.SetPosition(1, end);
+                        GameManager.DiffractionNum--;
+                        AddLineRenderer(newLine);
+                    }
+                    else
+                    {
+                        Debug.Log("剩余点数不足！" + "BlockerNum: " + GameManager.BlockerNum + "DiffractionNum: " + GameManager.DiffractionNum);
+                        
+                    }
 
                 }
                 return true;
