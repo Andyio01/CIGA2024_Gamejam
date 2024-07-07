@@ -13,7 +13,6 @@ public class GameMain : MonoBehaviour
     private void Awake()
     {
         MusicMgr.Instance.PlayGameMusic(BinaryDataMgr.Instance.GetTable<GlobalContainer>().GetData((int)E_Global.MUSIC_BGM).stringValue, ResourcesUtil.BGM_MUSIC_PATH);
-        Debug.Log(BinaryDataMgr.Instance.GetTable<GlobalContainer>().GetData((int)E_Global.MUSIC_BGM).stringValue);
         UIManager.Instance.ShowWindow<BeginWindow>();
     }
 

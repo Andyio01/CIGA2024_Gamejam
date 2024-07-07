@@ -1,6 +1,6 @@
 /* ------------------------------------
-/* Title: GameMainWindow组件类
-/* Creation Time: 2024/7/6 18:03:27
+/* Title: GamePauseWindow组件类
+/* Creation Time: 2024/7/7 11:02:19
 /* Author: Rock
 /* Description: It is used to mount the corresponding Window object and automatically obtain UI components.
 /* 描述: 用于挂载在对应的Window物体上，自动获取UI组件。
@@ -14,7 +14,7 @@ using UnityEngine.UI;
 namespace QZGameFramework.UIManager
 {
 	[DisallowMultipleComponent]
-	public class GameMainWindowDataComponent : MonoBehaviour
+	public class GamePauseWindowDataComponent : MonoBehaviour
 	{
 		[ReadOnly] public Button CloseButton;
 		[ReadOnly] public Button ContinueButton;
@@ -24,7 +24,7 @@ namespace QZGameFramework.UIManager
 		public void InitUIComponent(WindowBase target)
 		{
 			// 组件事件绑定
-			GameMainWindow mWindow = target as GameMainWindow;
+			GamePauseWindow mWindow = target as GamePauseWindow;
 			target.AddButtonClickListener(CloseButton,mWindow.OnCloseButtonClick);
 			target.AddButtonClickListener(ContinueButton,mWindow.OnContinueButtonClick);
 			target.AddButtonClickListener(SettingButton,mWindow.OnSettingButtonClick);

@@ -1,6 +1,6 @@
 /* ------------------------------------
-/* Title: GameMainWindow类
-/* Creation Time: 2024/7/6 18:03:36
+/* Title: GameOverWindow类
+/* Creation Time: 2024/7/7 11:03:15
 /* Author: Rock
 /* Description: This is the class used to bind the Window prefab.
 /* 描述: 这是用于绑定 Window 预制体的类。
@@ -11,11 +11,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using QZGameFramework.UIManager;
 using QZGameFramework.GFSceneManager;
+using UnityEngine.SceneManagement;
 
-public class GameMainWindow : WindowBase
+public class GameOverWindow : WindowBase
 {
     // UI面板的组件类
-    private GameMainWindowDataComponent dataCompt;
+    private GameOverWindowDataComponent dataCompt;
 
     #region 生命周期函数
 
@@ -24,7 +25,7 @@ public class GameMainWindow : WindowBase
     /// </summary>
     public override void OnAwake()
     {
-        dataCompt = gameObject.GetComponent<GameMainWindowDataComponent>();
+        dataCompt = gameObject.GetComponent<GameOverWindowDataComponent>();
         dataCompt.InitUIComponent(this);
         base.OnAwake();
     }
@@ -35,7 +36,6 @@ public class GameMainWindow : WindowBase
     public override void OnShow()
     {
         base.OnShow();
-        GameManager.Instance.IsShowGameMainWindow = true;
     }
 
     /// <summary>
@@ -44,7 +44,6 @@ public class GameMainWindow : WindowBase
     public override void OnHide()
     {
         base.OnHide();
-        GameManager.Instance.IsShowGameMainWindow = false;
     }
 
     /// <summary>
@@ -71,6 +70,7 @@ public class GameMainWindow : WindowBase
     public void OnContinueButtonClick()
     {
         HideWindow();
+        SceneMgr.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OnSettingButtonClick()

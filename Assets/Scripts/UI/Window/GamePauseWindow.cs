@@ -1,7 +1,7 @@
 /* ------------------------------------
-/* Title: BeginWindow类
-/* Creation Time: 2024/7/6 10:01:20
-/* Author: hhz
+/* Title: GameMainWindow类
+/* Creation Time: 2024/7/6 18:03:36
+/* Author: Rock
 /* Description: This is the class used to bind the Window prefab.
 /* 描述: 这是用于绑定 Window 预制体的类。
 /* 注意: 如需重新生成此文件，请务必对此 Window 的预制体进行新的修改后，并重新生成对应的 DataComponent 类后再重新生成此文件，否则现有编写的代码将会被全部覆盖为默认代码！！！
@@ -11,15 +11,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using QZGameFramework.UIManager;
 using QZGameFramework.GFSceneManager;
-using QZGameFramework.PackageMgr.ResourcesManager;
-using QZGameFramework.PersistenceDataMgr;
+using UnityEngine.SceneManagement;
 
-public class BeginWindow : WindowBase
+public class GamePauseWindow : WindowBase
 {
     // UI面板的组件类
-    private BeginWindowDataComponent dataCompt;
-
-    private MusicData musicData;
+    private GamePauseWindowDataComponent dataCompt;
 
     #region 生命周期函数
 
@@ -28,13 +25,9 @@ public class BeginWindow : WindowBase
     /// </summary>
     public override void OnAwake()
     {
-        dataCompt = gameObject.GetComponent<BeginWindowDataComponent>();
+        dataCompt = gameObject.GetComponent<GamePauseWindowDataComponent>();
         dataCompt.InitUIComponent(this);
         base.OnAwake();
-        dataCompt.CheckmarkImage.raycastTarget = true;
-        musicData = GameDataMgr.Instance.musicData;
-        dataCompt.MusicToggle.isOn = musicData.musicOn;
-        OnMusicToggleChange(dataCompt.MusicToggle.isOn, dataCompt.MusicToggle);
     }
 
     /// <summary>
@@ -43,6 +36,7 @@ public class BeginWindow : WindowBase
     public override void OnShow()
     {
         base.OnShow();
+        GameManager.Instance.IsShowGamePauseWindow = true;
     }
 
     /// <summary>
@@ -51,6 +45,7 @@ public class BeginWindow : WindowBase
     public override void OnHide()
     {
         base.OnHide();
+        GameManager.Instance.IsShowGamePauseWindow = false;
     }
 
     /// <summary>
@@ -69,35 +64,27 @@ public class BeginWindow : WindowBase
 
     #region UI组件事件
 
-    public void OnMusicToggleChange(bool state, Toggle toggle)
+    public void OnCloseButtonClick()
     {
-        if (!state)
-        {
-            dataCompt.CheckmarkImage.sprite = ResourcesMgr.Instance.LoadRes<Sprite>("UI/BeginWindow/music");
-        }
-        else
-        {
-            dataCompt.CheckmarkImage.sprite = ResourcesMgr.Instance.LoadRes<Sprite>("UI/BeginWindow/music0");
-        }
-        dataCompt.CheckmarkImage.SetNativeSize();
-        GameDataMgr.Instance.musicData.musicOn = state;
-        GameDataMgr.Instance.SaveMusicData();
-    }
-
-    public void OnQuitGameButtonClick()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
-    }
-
-    public void OnStartGameButtonClick()
-    {
-        SceneMgr.LoadScene(BinaryDataMgr.Instance.GetTable<GlobalContainer>().GetData((int)E_Global.LEVEL_01).stringValue);
         HideWindow();
-        //UIManager.Instance.ShowWindow<GameMainWindow>();
+    }
+
+    public void OnContinueButtonClick()
+    {
+        HideWindow();
+        SceneMgr.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OnSettingButtonClick()
+    {
+        //UIManager.Instance.ShowWindow<SettingWindow>();
+    }
+
+    public void OnMainMenuButtonClick()
+    {
+        HideWindow();
+
+        SceneMgr.LoadScene("BeginScene");
     }
 
     #endregion

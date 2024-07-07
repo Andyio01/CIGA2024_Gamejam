@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
 
     private static bool isInit = false; // 是否已经初始化过
 
-    private bool isShowGameMainWindow;
-    public bool IsShowGameMainWindow { get => isShowGameMainWindow; set => isShowGameMainWindow = value; }
+    private bool isShowGamePauseWindow;
+    public bool IsShowGamePauseWindow { get => isShowGamePauseWindow; set => isShowGamePauseWindow = value; }
     public static int BlockerNum;
     public static int DiffractionNum;
 
@@ -76,14 +76,14 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        IsShowGameMainWindow = !IsShowGameMainWindow;
-        if (IsShowGameMainWindow)
+        isShowGamePauseWindow = !isShowGamePauseWindow;
+        if (isShowGamePauseWindow)
         {
-            UIManager.Instance.ShowWindow<GameMainWindow>();
+            UIManager.Instance.ShowWindow<GamePauseWindow>();
         }
         else
         {
-            UIManager.Instance.HideWindow<GameMainWindow>();
+            UIManager.Instance.HideWindow<GamePauseWindow>();
         }
     }
 
