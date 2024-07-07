@@ -19,8 +19,13 @@ TagManager:
   - IgnoreLaser
   - Origin
   - Blocker
+<<<<<<< Updated upstream
   - Reflectable
   - Refractable
+=======
+  - Fog
+  - 
+>>>>>>> Stashed changes
   - 
   - 
   - 
