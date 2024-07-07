@@ -56,8 +56,9 @@ Material:
     m_Floats:
     - _Lerp: 0.415
     - _MoveSpeed: 0.04
+    - _Opacity: 0.597
     - _ReflectionStrength: 3.05
-    - _Refraction_Strength: 1.14
+    - _Refraction_Strength: 1.47
     m_Colors:
     - _Color: {r: 0.37169805, g: 0.75653285, b: 1, a: 1}
   m_BuildTextureStacks: []
