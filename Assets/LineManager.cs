@@ -116,7 +116,8 @@ public class LineManager : MonoBehaviour
                         // Debug.Log("newLine.position: " + newLine.transform.position);
                         // newLine.SetPosition(1, end);
                         GameManager.BlockerNum--;
-                        AddLineRenderer(newLine);
+                        Debug.Log("BlockerNum减1!: " + GameManager.BlockerNum);
+                        // AddLineRenderer(newLine);
                     }
                     else if (!currentPointer.GetComponentInChildren<MouseHover>().IsBlocker && GameManager.DiffractionNum > 0){
                         GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
@@ -128,6 +129,7 @@ public class LineManager : MonoBehaviour
                         // newLine.SetPosition(1, end);
                         GameManager.DiffractionNum--;
                         AddLineRenderer(newLine);
+                        Debug.Log("场景中线的数量" + lineRenderers.Length);
                     }
                     else
                     {

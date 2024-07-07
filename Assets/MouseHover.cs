@@ -10,14 +10,18 @@ public class MouseHover : MonoBehaviour
     public float distance;  // 端点之间的距离
     private LineRenderer currentLine;
     public bool IsBlocker;
-    public Texture2D DefaultCursor;
-    public Texture2D DragCursor;
-    public Texture2D InteractableCursor;
+    // 指针资源
+    public static Texture2D DefaultCursor;
+    public static Texture2D DragCursor;
+    public static Texture2D InteractableCursor;
 
     
     void Start()
     {
-        
+       GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+       DefaultCursor = gameManager.DefaultCursor;
+       DragCursor = gameManager.DragCursor;
+       InteractableCursor = gameManager.InteractableCursor;
     }
 
     // Update is called once per frame
@@ -34,7 +38,7 @@ public class MouseHover : MonoBehaviour
             {
                 GameManager.DiffractionNum++;
                 Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
-                LineManager.DeleteLineRenderer(currentLine);
+                LineManager.DeleteLineRenderer(this.transform.parent.GetComponentInChildren<LineRenderer>());
 
             }
             Destroy(this.gameObject.transform.parent.gameObject);
@@ -83,6 +87,7 @@ public class MouseHover : MonoBehaviour
     {
         Debug.Log("Mouse Enter");
         this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
+        CursorManager.Instance.SetCursorIcon(InteractableCursor);
         isMouseOver = true;
         
     }
@@ -91,6 +96,7 @@ public class MouseHover : MonoBehaviour
     {
         Debug.Log("Mouse Exit");
         this.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
+        CursorManager.Instance.SetCursorIcon(DefaultCursor);
         isMouseOver = false;
     }
 
@@ -99,6 +105,8 @@ public class MouseHover : MonoBehaviour
     {
         Dragging = true;
         this.gameObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.5f);
+        CursorManager.Instance.SetCursorIcon(DragCursor);
+
 
         Debug.Log("Dragging");
     }

@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
     public static int BlockerNum;
     public static int DiffractionNum;
 
+    public Texture2D DefaultCursor;
+    public Texture2D DragCursor;
+    public Texture2D InteractableCursor;
+
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitalizeGameManager()
     {
