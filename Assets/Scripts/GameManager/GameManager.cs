@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     private bool isShowGameMainWindow;
     public bool IsShowGameMainWindow { get => isShowGameMainWindow; set => isShowGameMainWindow = value; }
+    public static int BlockerNum;
+    public static int DiffractionNum;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitalizeGameManager()

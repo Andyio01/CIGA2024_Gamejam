@@ -75,6 +75,16 @@ public class PointController : MonoBehaviour
     IEnumerator WaitAndDestroy(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        if(this.GetComponentInChildren<MouseHover>().IsBlocker)
+        {
+            GameManager.BlockerNum++;
+            Debug.Log("当前BlockerNum: " + GameManager.BlockerNum);
+        }
+        else
+        {
+            GameManager.DiffractionNum++;
+            Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
+        }
         Destroy(this.gameObject);
         // LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
 
