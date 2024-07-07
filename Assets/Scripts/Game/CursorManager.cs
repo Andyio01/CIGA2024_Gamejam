@@ -12,5 +12,6 @@ public class CursorManager : Singleton<CursorManager>
     public void SetCursorIcon(Texture2D texture)
     {
         Cursor.SetCursor(texture, Vector2.zero, CursorMode.Auto);
+        Debug.Log("指针设置为：" + texture.name);
     }
 }
