@@ -3,29 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Blocker
-  - GameManager
-  - Reciever
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Point
+  - 
   - Water
   - UI
-  - Post
-  - Background
-  - IgnoreLaser
-  - Origin
-  - Blocker
-<<<<<<< Updated upstream
-  - Reflectable
-  - Refractable
-=======
-  - Fog
   - 
->>>>>>> Stashed changes
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -48,7 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: GameObject
-    uniqueID: 2306499503
     locked: 0
