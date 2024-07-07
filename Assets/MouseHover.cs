@@ -29,6 +29,7 @@ public class MouseHover : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(1) && isMouseOver)
         {
+            Debug.Log("右键按下！");
             if(this.IsBlocker)
             {
                 GameManager.BlockerNum++;
@@ -90,6 +91,14 @@ public class MouseHover : MonoBehaviour
         CursorManager.Instance.SetCursorIcon(InteractableCursor);
         isMouseOver = true;
         
+    }
+    
+    public void OnMouseOver()
+    {
+        Debug.Log("Mouse Enter");
+        this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
+        CursorManager.Instance.SetCursorIcon(InteractableCursor);
+        isMouseOver = true;
     }
 
     public void OnMouseExit()

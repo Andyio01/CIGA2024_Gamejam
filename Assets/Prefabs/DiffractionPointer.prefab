@@ -9816,7 +9816,7 @@ Transform:
   m_GameObject: {fileID: 3522185413815510875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.50503, y: 0.50503, z: 0.50503}
+  m_LocalScale: {x: 0.750525, y: 0.750525, z: 0.750525}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7742531832483452504}
@@ -9846,10 +9846,10 @@ MonoBehaviour:
   Rotation: 0
   RotationPeriod: 0
   RotationAngle: 0
-  color: {r: 1, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
   colorIntensity: 4.3
-  thickness: 9
-  noiseScale: 1
+  thickness: 3
+  noiseScale: 0.3
   enhance: 3
 --- !u!114 &264325742296303605
 MonoBehaviour:
@@ -14806,6 +14806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0
+  IsBlocker: 0
 --- !u!58 &5450613326118779575
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -14842,7 +14843,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 58c6afb62e6e58b4485002bcc5dcb91f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
