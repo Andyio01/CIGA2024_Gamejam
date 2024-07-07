@@ -2001,7 +2001,7 @@ GameObject:
   - component: {fileID: 1117263822}
   - component: {fileID: 1117263821}
   - component: {fileID: 1117263823}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: obs1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
