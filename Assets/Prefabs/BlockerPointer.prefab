@@ -235,7 +235,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 95bf907a45399df4c90f64b9aedbd46f, type: 2}
+  - {fileID: 2100000, guid: 9da5530d5ebfab24c8ecad68795e720f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19738,10 +19738,10 @@ MonoBehaviour:
   Rotation: 0
   RotationPeriod: 0
   RotationAngle: 0
-  color: {r: 1, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
   colorIntensity: 4.3
-  thickness: 9
-  noiseScale: 1
+  thickness: 3
+  noiseScale: 0.3
   enhance: 3
 --- !u!114 &5738496916880352689
 MonoBehaviour:

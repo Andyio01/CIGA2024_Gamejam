@@ -39,6 +39,7 @@ public class MouseHover : MonoBehaviour
             {
                 GameManager.DiffractionNum++;
                 Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
+                if(transform.parent.GetComponentInChildren<LineRenderer>())
                 LineManager.DeleteLineRenderer(this.transform.parent.GetComponentInChildren<LineRenderer>());
 
             }
