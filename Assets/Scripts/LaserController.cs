@@ -167,6 +167,10 @@ public class LaserController : MonoBehaviour
                 {
                     hit.transform.gameObject.GetComponent<PointController>().hitByLaser(direction.normalized);
                 }
+                if (hit.transform.gameObject.tag == "Reciever") {
+                    // Logic for the reciever(win the game, show hidden object, etc.)
+                    hit.transform.gameObject.GetComponent<Reciever>().CameraMove();
+                }
                 // Hit the object that is not reflectable
 
                 // Hit the object that is reflectable
@@ -261,11 +265,11 @@ public class LaserController : MonoBehaviour
                     linerenderer.positionCount++;
                     linerenderer.SetPosition(++i, endVFX.transform.position);
                     // break;
-                    if (hit.transform.gameObject.tag == "Reciever")
-                    {
-                        // Logic for the reciever(win the game, show hidden object, etc.)
-                        Destroy(hit.transform.gameObject);
-                    }
+                    // if (hit.transform.gameObject.tag == "Reciever")
+                    // {
+                    //     // Logic for the reciever(win the game, show hidden object, etc.)
+                    //     Destroy(hit.transform.gameObject);
+                    // }
                     // if (hit.transform.gameObject.tag == "Mirror") {
                     //     // Logic for the mirror(win the game, show hidden object, etc.)
                     //     hit.transform.gameObject.GetComponentInParent<HittedAndLight>().Hitted();

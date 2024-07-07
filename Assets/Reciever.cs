@@ -5,7 +5,7 @@ using UnityEngine;
 public class Reciever : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Vector2 NextCameraPoisition;
+    public Vector3 NextCameraPoisition;
     private bool IsActived = false;
     void Start()
     {
