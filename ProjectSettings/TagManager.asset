@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Blocker
   - GameManager
-  - Reciever
   layers:
   - Default
   - TransparentFX
@@ -19,13 +18,8 @@ TagManager:
   - IgnoreLaser
   - Origin
   - Blocker
-<<<<<<< Updated upstream
   - Reflectable
-  - Refractable
-=======
-  - Fog
   - 
->>>>>>> Stashed changes
   - 
   - 
   - 

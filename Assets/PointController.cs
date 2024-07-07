@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -90,9 +89,5 @@ public class PointController : MonoBehaviour
         // LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
 
     }
-
-    internal void hitByLaser(Vector2 normalized)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
