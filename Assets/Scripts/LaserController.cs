@@ -10,6 +10,14 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
+
+
+
+
+
+
+
+
 public class LaserController : MonoBehaviour
 {
 
@@ -20,6 +28,8 @@ public class LaserController : MonoBehaviour
     private float InitAngle;
     private Vector2 StartPosition;
     public LayerMask layerMask;
+    private float tolerance = 0.01f; // Adjust the tolerance as needed
+
     [SerializeField] public ParticleSystem EmissionPoint;
     [SerializeField] private GameObject startVFX;
     [SerializeField] private GameObject endVFX;
@@ -100,6 +110,11 @@ public class LaserController : MonoBehaviour
         Vector2 curPosition = StartPosition;
         RaycastHit2D hit = Physics2D.Raycast(curPosition, direction.normalized, length, layerMask);
 
+
+
+
+
+
         LightCheck(ref direction, ref length, ref laserEndRotation, ref i, ref curPosition, ref hit, new HashSet<Vector2>());
 
         // linerenderer.SetPosition(1, new Vector3(length, 0, 0));
@@ -176,7 +191,8 @@ public class LaserController : MonoBehaviour
                 }
                 else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Refractable"))
                 {
-                    if (visitedPoints.Contains(hit.point))
+                    bool pointVisited = false;
+                    if (pointVisited)
                     {
                         break;
                     }
