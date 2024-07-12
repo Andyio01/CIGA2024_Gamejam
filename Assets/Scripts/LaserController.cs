@@ -120,7 +120,7 @@ public class LaserController : MonoBehaviour
         // linerenderer.SetPosition(1, new Vector3(length, 0, 0));
         //  endVFX.SetActive(true); 
         //infrared(direction, length, laserEndRotation, ref i, ref curPosition);
-
+        infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
 
         void infrared(Vector2 direction, float length, float laserEndRotation, ref int i, ref Vector2 curPosition, ref RaycastHit2D hit)
         {
@@ -165,7 +165,8 @@ public class LaserController : MonoBehaviour
 
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point"))
                 {
-                    hit.transform.gameObject.GetComponent<PointController>().hitByLaser(direction.normalized);
+                    Debug.Log("打到了点上");
+                    hit.transform.gameObject.GetComponent<PointController>().hitByLaser(linerenderer);
                 }
                 if (hit.transform.gameObject.tag == "Reciever") {
                     // Logic for the reciever(win the game, show hidden object, etc.)

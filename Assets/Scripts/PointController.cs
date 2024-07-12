@@ -91,8 +91,8 @@ public class PointController : MonoBehaviour
 
     }
 
-    internal void hitByLaser(Vector2 normalized)
-    {
-        throw new NotImplementedException();
-    }
+    // internal void hitByLaser(Vector2 normalized)
+    // {
+    //     throw new NotImplementedException();
+    // }
 }

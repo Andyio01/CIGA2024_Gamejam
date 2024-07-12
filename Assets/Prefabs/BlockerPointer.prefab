@@ -138,7 +138,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1988467793
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.116104126, g: 1, b: 0, a: 1}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 7838721853672315612}
   - component: {fileID: 552915429976316147}
   - component: {fileID: 141528243056094149}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1988467793
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -19728,13 +19728,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba2d2edf5e65be4594e1cbd85493339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 0
+  deadly: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0
   EmissionPoint: {fileID: 8762440978572786070}
   startVFX: {fileID: 36775735058103331}
   endVFX: {fileID: 6164057274577551573}
+  RestartVFX: {fileID: 0}
+  ReendVFX: {fileID: 0}
   Rotation: 0
   RotationPeriod: 0
   RotationAngle: 0

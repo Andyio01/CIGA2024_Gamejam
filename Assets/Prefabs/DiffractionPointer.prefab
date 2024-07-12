@@ -9836,13 +9836,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba2d2edf5e65be4594e1cbd85493339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 0
+  deadly: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0
   EmissionPoint: {fileID: 3860253329786133458}
   startVFX: {fileID: 5515371328468557415}
   endVFX: {fileID: 1838329809170096785}
+  RestartVFX: {fileID: 0}
+  ReendVFX: {fileID: 0}
   Rotation: 0
   RotationPeriod: 0
   RotationAngle: 0
@@ -14771,7 +14773,7 @@ GameObject:
   - component: {fileID: 2360050757437831320}
   - component: {fileID: 5450613326118779575}
   - component: {fileID: 1000020942754878544}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14862,7 +14864,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1988467793
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

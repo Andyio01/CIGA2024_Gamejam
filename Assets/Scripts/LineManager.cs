@@ -35,7 +35,7 @@ public class LineManager : MonoBehaviour
             }
             if (IsMouseOverLine(lineRenderer, mousePosition, threshold))
             {
-                Debug.Log("鼠标当前悬浮在直线 " + lineRenderer.gameObject.name + " 上");
+                // Debug.Log("鼠标当前悬浮在直线 " + lineRenderer.gameObject.name + " 上");
                 
             }
         }
