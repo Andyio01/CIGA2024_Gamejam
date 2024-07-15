@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdd6943b8856144d93ca6b703c8e1fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultCursor: {fileID: 2800000, guid: cccc116a6334dc1428687697c5a11d58, type: 3}
-  DragCursor: {fileID: 2800000, guid: f62c0c3a5ddcd844e905fb2632fdcb15, type: 3}
-  InteractableCursor: {fileID: 2800000, guid: e9c4642eaa083a54ab91406d8449e6ac, type: 3}
+  DefaultCursor: {fileID: 2800000, guid: cae3362d091ce8f43a0d41f9474c2993, type: 3}
+  DragCursor: {fileID: 2800000, guid: bc23470a481957043831ded42be1d8dd, type: 3}
+  InteractableCursor: {fileID: 2800000, guid: 2dd40e5ed8db42248b9c6d8860b5a288, type: 3}

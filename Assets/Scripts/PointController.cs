@@ -44,14 +44,14 @@ public class PointController : MonoBehaviour
             if(gameObject.transform.tag != "Blocker") GetComponentInChildren<LineRenderer>().enabled = false;
             // gameObject.GetComponent<LaserController>().SetLength(0.0f);
             StartCoroutine(WaitAndDestroy(1f));
-            Debug.Log("No Hit");
+            // Debug.Log("No Hit");
         }
         else{
             // 有前置光线时开启LineRender
             if(gameObject.transform.tag != "Blocker") GetComponentInChildren<LineRenderer>().enabled = true;
             // gameObject.GetComponent<LaserController>().SetLength(0.0f);
             StopAllCoroutines();
-            Debug.Log("Hit");
+            // Debug.Log("Hit");
         }
         isHit = false;
 

@@ -165,7 +165,7 @@ public class LaserController : MonoBehaviour
 
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point"))
                 {
-                    Debug.Log("打到了点上");
+                    // Debug.Log("打到了点上");
                     hit.transform.gameObject.GetComponent<PointController>().hitByLaser(linerenderer);
                 }
                 if (hit.transform.gameObject.tag == "Reciever") {

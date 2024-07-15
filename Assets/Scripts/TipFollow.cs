@@ -41,16 +41,18 @@ public class TipFollow : MonoBehaviour
         // 向前滚动切换Blocker
         if (scroll > 0f)
         {
-            Debug.Log("滚轮向前");
+            
             isBlocker = true;
             LineManager.ChangeCurrentPointer(BlockerPrefab, BlockerPreview);
+            Debug.Log("滚轮向前, 当前prefab为: " + LineManager.currentPointer.name);
             tooltipText.color = Color.red;
         }
         else if (scroll < 0f)
         {
-            Debug.Log("滚轮向后");
+            
             isBlocker = false;
             LineManager.ChangeCurrentPointer(DiffractionPrefab, DiffractionPreview);
+            Debug.Log("滚轮向后, 当前prefab为: " + LineManager.currentPointer.name);
             tooltipText.color = Color.blue;
         }
         

@@ -54,6 +54,7 @@ public class MouseHover : MonoBehaviour
         {
             Dragging = false;
             // this.gameObject.transform.parent.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            CursorManager.Instance.SetCursorIcon(DefaultCursor);
             this.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
         }
         if (Dragging && IsBlocker)
@@ -87,7 +88,7 @@ public class MouseHover : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        Debug.Log("Mouse Enter");
+        // Debug.Log("Mouse Enter");
         this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
         CursorManager.Instance.SetCursorIcon(InteractableCursor);
         isMouseOver = true;
@@ -96,15 +97,16 @@ public class MouseHover : MonoBehaviour
     
     public void OnMouseOver()
     {
-        Debug.Log("Mouse Enter");
+        // Debug.Log("Mouse Enter");
         this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
-        CursorManager.Instance.SetCursorIcon(InteractableCursor);
+        if(!Dragging) CursorManager.Instance.SetCursorIcon(InteractableCursor);
+        else CursorManager.Instance.SetCursorIcon(DragCursor);
         isMouseOver = true;
     }
 
     public void OnMouseExit()
     {
-        Debug.Log("Mouse Exit");
+        // Debug.Log("Mouse Exit");
         this.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
         CursorManager.Instance.SetCursorIcon(DefaultCursor);
         isMouseOver = false;
