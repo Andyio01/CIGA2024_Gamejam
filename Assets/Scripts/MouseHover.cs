@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 public class MouseHover : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -40,7 +41,8 @@ public class MouseHover : MonoBehaviour
                 GameManager.DiffractionNum++;
                 Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
                 if(transform.parent.GetComponentInChildren<LineRenderer>())
-                LineManager.DeleteLineRenderer(this.transform.parent.GetComponentInChildren<LineRenderer>());
+                if(LineManager.lineRenderers.Contains(this.transform.parent.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.parent.GetComponentInChildren<LineRenderer>());
+                Debug.Log("场景中线的数量" + LineManager.lineRenderers.Length + LineManager.lineRenderers);
 
             }
             Destroy(this.gameObject.transform.parent.gameObject);
@@ -57,12 +59,12 @@ public class MouseHover : MonoBehaviour
             CursorManager.Instance.SetCursorIcon(DefaultCursor);
             this.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
         }
-        if (Dragging && IsBlocker)
+        if (Dragging && IsBlocker && currentLine)
         {
             Transform pivot = currentLine.transform.parent.parent.gameObject.transform;
             Vector2 mousePosition = CursorManager.Instance.GetMousePossition();
-            Vector2 direction = (mousePosition - (Vector2)pivot.position).normalized;
-            pivot.gameObject.GetComponent<LaserController>().EmissionPoint.transform.position = pivot.position + (Vector3)(direction * 0.25f);
+            Vector2 direction = (mousePosition - ((Vector2)pivot.position + new Vector2(0,0.2f))).normalized;
+            // pivot.gameObject.GetComponent<LaserController>().EmissionPoint.transform.position = pivot.position + (Vector3)(direction);
             // pivot.right = direction;
 
         }
@@ -70,7 +72,7 @@ public class MouseHover : MonoBehaviour
     private void FixedUpdate() {
         
     
-        if (Dragging && IsBlocker)
+        if (Dragging && IsBlocker && currentLine)
         {
             // 获取旋转中心
             Transform pivot = currentLine.transform.parent.parent.gameObject.transform;
@@ -78,7 +80,7 @@ public class MouseHover : MonoBehaviour
             distance = Vector2.Distance(pivot.position, this.gameObject.transform.parent.position);
             Debug.Log("Distance: " + distance);
             Vector2 mousePosition = CursorManager.Instance.GetMousePossition();
-            Vector2 direction = (mousePosition - (Vector2)pivot.position).normalized;
+            Vector2 direction = (mousePosition - ((Vector2)pivot.position + new Vector2(0,0.2f))).normalized;
             transform.parent.position = pivot.position + (Vector3)(direction * distance);  // 维持半径不变
             pivot.right = direction;
         }

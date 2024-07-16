@@ -1,12 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class PointController : MonoBehaviour
 {
     public bool isHit = true;
     private bool isMouseOver = false;
+    // 该点是否处在销毁的进程中
+    private bool isVanishing = false;
+    // 该点暂时未被击中
+    private bool waitForHit = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,16 +47,26 @@ public class PointController : MonoBehaviour
         if (!isHit)
         {
             // 没有前置光线时关闭LineRender
-            if(gameObject.transform.tag != "Blocker") GetComponentInChildren<LineRenderer>().enabled = false;
+            if(gameObject.transform.tag != "Blocker") 
+            GetComponentInChildren<LineRenderer>().enabled = false;
+            else if(gameObject.transform.tag == "Blocker" && !waitForHit)
+            {
+                StartCoroutine(WaitAndDestroy(1f));
+            }
             // gameObject.GetComponent<LaserController>().SetLength(0.0f);
-            StartCoroutine(WaitAndDestroy(1f));
+            // LineManager.DeleteLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
+            if(LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
+
+            // StartCoroutine(WaitAndDestroy(1f));
             // Debug.Log("No Hit");
         }
         else{
             // 有前置光线时开启LineRender
             if(gameObject.transform.tag != "Blocker") GetComponentInChildren<LineRenderer>().enabled = true;
+            waitForHit = false;
             // gameObject.GetComponent<LaserController>().SetLength(0.0f);
-            StopAllCoroutines();
+            // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
+            if(!isVanishing) StopAllCoroutines();
             // Debug.Log("Hit");
         }
         isHit = false;
@@ -64,6 +80,7 @@ public class PointController : MonoBehaviour
     // // }
     public void hitByLaser(LineRenderer line)
     {
+        
         isHit = true;
         // GetComponentInChildren<LineRenderer>().enabled = true;
         // // 获取射线方向
@@ -71,11 +88,18 @@ public class PointController : MonoBehaviour
         // 旋转自身
         // transform.right = direction;
         this.GetComponentInChildren<MouseHover>().SetCurrentLine(line);
+        if(!LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) 
+        LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
     }
 
     IEnumerator WaitAndDestroy(float waitTime)
     {
+        waitForHit = true;
+        SpriteRenderer spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         yield return new WaitForSeconds(waitTime);
+        isVanishing = true;
+        yield return spriteRenderer.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f).WaitForCompletion();
+        yield return spriteRenderer.transform.DOScale(new Vector3(0f, 0f, 0f), 0.5f).WaitForCompletion();
         if(this.GetComponentInChildren<MouseHover>().IsBlocker)
         {
             GameManager.BlockerNum++;
@@ -83,9 +107,11 @@ public class PointController : MonoBehaviour
         }
         else
         {
+            if(LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
             GameManager.DiffractionNum++;
             Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
         }
+
         Destroy(this.gameObject);
         // LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
 

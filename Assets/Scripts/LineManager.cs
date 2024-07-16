@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using AmplifyShaderEditor;
 using UnityEngine;
 
 public class LineManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class LineManager : MonoBehaviour
     private Vector2 lastMousePosition;
     private GameObject currentPrefabInstance; // 当前场景中的Prefab实例
     public static GameObject currentPreview;
+    [SerializeField]
     public static GameObject currentPointer;
 
     // 测试用
@@ -26,7 +28,8 @@ public class LineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 mousePosition = CursorManager.Instance.GetMousePossition();;
+        Vector2 mousePosition = CursorManager.Instance.GetMousePossition();
+        bool isOnALine = false;
         foreach (var lineRenderer in lineRenderers)
         {
             if(lineRenderer == null)
@@ -36,9 +39,19 @@ public class LineManager : MonoBehaviour
             if (IsMouseOverLine(lineRenderer, mousePosition, threshold))
             {
                 // Debug.Log("鼠标当前悬浮在直线 " + lineRenderer.gameObject.name + " 上");
-                
+                // continue;
+                isOnALine = true;
             }
+            // else{
+            //     Destroy(currentPrefabInstance); // 如果存在旧的Prefab实例
+            //     break;
+            // }
         }
+        if (currentPrefabInstance != null && !isOnALine)
+                {
+                    Destroy(currentPrefabInstance); // 如果存在旧的Prefab实例，则销毁它
+                    
+                }
     }
 
     public static void AddLineRenderer(LineRenderer lineRenderer)
@@ -92,12 +105,13 @@ public class LineManager : MonoBehaviour
             {
                 Vector2 currentMousePosition = mousePos;
                 // Vector2 currentMousePosition = mousePos;
-                // Debug.Log("鼠标悬浮在线上");
+                Debug.Log("鼠标悬浮在线上");
                 if(currentMousePosition != lastMousePosition)
                 {
                     if (currentPrefabInstance != null)
                     {
                         Destroy(currentPrefabInstance); // 如果存在旧的Prefab实例，则销毁它
+                        
                     }   
                     currentPrefabInstance = Instantiate(currentPreview, ClosestPointOnLineSegment(currentMousePosition, start, end), Quaternion.identity);
 
@@ -129,7 +143,7 @@ public class LineManager : MonoBehaviour
                         // newLine.SetPosition(1, end);
                         GameManager.DiffractionNum--;
                         AddLineRenderer(newLine);
-                        Debug.Log("场景中线的数量" + lineRenderers.Length);
+                        Debug.Log("场景中线的数量" + lineRenderers.Length + lineRenderers[0].gameObject.name);
                     }
                     else
                     {
@@ -140,6 +154,15 @@ public class LineManager : MonoBehaviour
                 }
                 return true;
             }
+            // else if (PointToLineDistance(mousePos, start, end) > threshold)
+            // {
+            //     if (currentPrefabInstance != null)
+            //     {
+            //         Destroy(currentPrefabInstance); // 如果存在旧的Prefab实例，则销毁它
+            //         return false;
+            //     }
+            // }
+            
         }
         return false;
     }
@@ -161,6 +184,7 @@ public class LineManager : MonoBehaviour
     // 计算点到线段的最近点，即点吸附在直线上的位置
     Vector2 ClosestPointOnLineSegment(Vector2 point, Vector2 lineStart, Vector2 lineEnd)
     {
+        // lineStart += new Vector2(0, 0.2f);
         Vector2 AP = point - lineStart; // 点到线段起点的向量
         Vector2 AB = lineEnd - lineStart; // 线段的向量
         float magnitudeAB = AB.magnitude; // 线段长度

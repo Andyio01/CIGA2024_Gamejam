@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2027275925656206800}
   - component: {fileID: 8543094239943671149}
   - component: {fileID: 5430823197926976338}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4823,7 +4823,7 @@ GameObject:
   - component: {fileID: 1397996766420176136}
   - component: {fileID: 7357724141649998014}
   - component: {fileID: 7192441863463896781}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9634,7 +9634,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6372237049440683267}
   - component: {fileID: 2386274906967382906}
-  m_Layer: 0
+  - component: {fileID: 1688868583154650513}
+  - component: {fileID: 7245974021930503308}
+  m_Layer: 3
   m_Name: Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9687,6 +9689,35 @@ MonoBehaviour:
   thickness: 3
   noiseScale: 0.3
   enhance: 1
+--- !u!114 &1688868583154650513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309084867287258585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7fc62dbf712dc4397ea490ba10c5f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHit: 1
+--- !u!58 &7245974021930503308
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309084867287258585}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &3319299358407521027
 GameObject:
   m_ObjectHideFlags: 0
@@ -9697,7 +9728,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5335995921194383540}
   - component: {fileID: 1997103779089884151}
-  m_Layer: 0
+  - component: {fileID: 5483562688733138668}
+  - component: {fileID: 4811024944082913967}
+  m_Layer: 6
   m_Name: Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9713,7 +9746,7 @@ Transform:
   m_GameObject: {fileID: 3319299358407521027}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.36, y: -0.03, z: 0}
-  m_LocalScale: {x: 0.13055326, y: 0.13055326, z: 0.13055326}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6372237049440683267}
@@ -9757,7 +9790,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -671701359
+  m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 2af94bbc3cfa90844bfcb88f9c398e11, type: 3}
@@ -9771,6 +9804,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5483562688733138668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319299358407521027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c25aa9983539045ab81927f5858868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0
+  IsBlocker: 0
+--- !u!58 &4811024944082913967
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319299358407521027}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &4619767448697643692
 GameObject:
   m_ObjectHideFlags: 0
@@ -9780,7 +9843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1890310545091822763}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StartVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9815,7 +9878,7 @@ GameObject:
   - component: {fileID: 383356329661528250}
   - component: {fileID: 2245916172420790979}
   - component: {fileID: 7761085847203526616}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14625,7 +14688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7387848806166669848}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EndVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14658,7 +14721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8515252701262709081}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14694,7 +14757,7 @@ GameObject:
   - component: {fileID: 3472275859763592380}
   - component: {fileID: 2543587849522798651}
   - component: {fileID: 5567736287986771233}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19505,7 +19568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 964421852750270209}
   - component: {fileID: 5620408812945917474}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}

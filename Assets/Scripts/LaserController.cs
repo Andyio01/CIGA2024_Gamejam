@@ -81,33 +81,36 @@ public class LaserController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateStartPosition();
-        UpdateEndPosition();
-        if (Rotation) RotateLauncher();
-
-    }
-
-    private void UpdateStartPosition()
-    {
-        linerenderer.SetPosition(0, EmissionPoint.transform.position);
-        Relinerenderer.SetPosition(0, EmissionPoint.transform.position);
-
-    }
-    private void UpdateEndPosition()
-    {
         float rotationZ = transform.rotation.eulerAngles.z; //degree
         rotationZ *= Mathf.Deg2Rad; //radian
 
         Vector2 direction = new Vector2(math.cos(rotationZ), math.sin(rotationZ));
 
+        UpdateStartPosition(direction);
+        UpdateEndPosition(direction);
+        if (Rotation) RotateLauncher();
 
+    }
+
+    private void UpdateStartPosition(Vector2 direction)
+    {
+        EmissionPoint.transform.position = (Vector2)transform.position + direction * 0.2f;
+        linerenderer.SetPosition(0, EmissionPoint.transform.position);
+        Relinerenderer.SetPosition(0, EmissionPoint.transform.position);
+
+    }
+    private void UpdateEndPosition(Vector2 direction)
+    {
+        
+        if(transform.GetComponent<PointController>() && transform.GetComponent<PointController>().isHit == false) return;
+        
         float length = 100f;
         float laserEndRotation = 180;
         Vector2 endPosition;
         linerenderer.positionCount = 1;
         int i = 0;
         int j = 0;
-        Vector2 curPosition = StartPosition;
+        Vector2 curPosition = EmissionPoint.transform.position;
         RaycastHit2D hit = Physics2D.Raycast(curPosition, direction.normalized, length, layerMask);
 
 
