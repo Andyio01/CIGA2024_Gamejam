@@ -16013,11 +16013,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c47b6fac42cdc149a64d838903fb7da, type: 3}
---- !u!1 &1034906769 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3309084867287258585, guid: 3c47b6fac42cdc149a64d838903fb7da, type: 3}
-  m_PrefabInstance: {fileID: 1034906768}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1034906770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8515252701262709081, guid: 3c47b6fac42cdc149a64d838903fb7da, type: 3}
@@ -16028,22 +16023,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3319299358407521027, guid: 3c47b6fac42cdc149a64d838903fb7da, type: 3}
   m_PrefabInstance: {fileID: 1034906768}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &1034906772
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1034906769}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
 --- !u!114 &1034906773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16058,22 +16037,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 0
   IsBlocker: 0
---- !u!58 &1034906774
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1034906771}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0000019073486, y: 0}
-  serializedVersion: 2
-  m_Radius: 2.56
 --- !u!1001 &1044040913
 PrefabInstance:
   m_ObjectHideFlags: 0

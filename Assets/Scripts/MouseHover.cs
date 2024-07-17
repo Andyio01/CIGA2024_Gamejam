@@ -15,6 +15,7 @@ public class MouseHover : MonoBehaviour
     public static Texture2D DefaultCursor;
     public static Texture2D DragCursor;
     public static Texture2D InteractableCursor;
+    private bool isDestroying = false;
 
     
     void Start()
@@ -31,21 +32,8 @@ public class MouseHover : MonoBehaviour
         if(Input.GetMouseButtonDown(1) && isMouseOver)
         {
             Debug.Log("右键按下！");
-            if(this.IsBlocker)
-            {
-                GameManager.BlockerNum++;
-                Debug.Log("当前BlockerNum: " + GameManager.BlockerNum);
-            }
-            else
-            {
-                GameManager.DiffractionNum++;
-                Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
-                if(transform.parent.GetComponentInChildren<LineRenderer>())
-                if(LineManager.lineRenderers.Contains(this.transform.parent.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.parent.GetComponentInChildren<LineRenderer>());
-                Debug.Log("场景中线的数量" + LineManager.lineRenderers.Length + LineManager.lineRenderers);
-
-            }
-            Destroy(this.gameObject.transform.parent.gameObject);
+            
+            if(!isDestroying) StartCoroutine(PlayAndDestroy(0.4f));
             // LineManager.DeleteLineRenderer();
         }
         // if(Input.GetMouseButtonDown(0) && isMouseOver)
@@ -91,7 +79,7 @@ public class MouseHover : MonoBehaviour
     public void OnMouseEnter()
     {
         // Debug.Log("Mouse Enter");
-        this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
+        if(!isDestroying) this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
         CursorManager.Instance.SetCursorIcon(InteractableCursor);
         isMouseOver = true;
         
@@ -100,7 +88,7 @@ public class MouseHover : MonoBehaviour
     public void OnMouseOver()
     {
         // Debug.Log("Mouse Enter");
-        this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
+        if(!isDestroying) this.gameObject.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.5f);
         if(!Dragging) CursorManager.Instance.SetCursorIcon(InteractableCursor);
         else CursorManager.Instance.SetCursorIcon(DragCursor);
         isMouseOver = true;
@@ -109,7 +97,7 @@ public class MouseHover : MonoBehaviour
     public void OnMouseExit()
     {
         // Debug.Log("Mouse Exit");
-        this.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
+        if(!isDestroying) this.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
         CursorManager.Instance.SetCursorIcon(DefaultCursor);
         isMouseOver = false;
     }
@@ -128,5 +116,25 @@ public class MouseHover : MonoBehaviour
     public void SetCurrentLine(LineRenderer line)
     {
         this.currentLine = line;
+    }
+
+    IEnumerator PlayAndDestroy(float waitTime){
+        isDestroying = true;
+        if(this.IsBlocker)
+            {
+                GameManager.BlockerNum++;
+                Debug.Log("当前BlockerNum: " + GameManager.BlockerNum);
+            }
+            else
+            {
+                GameManager.DiffractionNum++;
+                Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
+                if(transform.parent.GetComponentInChildren<LineRenderer>())
+                if(LineManager.lineRenderers.Contains(this.transform.parent.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.parent.GetComponentInChildren<LineRenderer>());
+                Debug.Log("场景中线的数量" + LineManager.lineRenderers.Length + LineManager.lineRenderers);
+
+            }
+        yield return transform.DOScale(new Vector3(0f, 0f, 0f), waitTime).WaitForCompletion();
+        Destroy(this.transform.parent.gameObject);
     }
 }
