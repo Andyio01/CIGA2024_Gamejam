@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 // using System.Numerics;
+
+// using System.Numerics;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -49,6 +51,7 @@ public class LaserController : MonoBehaviour
     float minDistanceThreshold = 3f; // Adjust as needed
     public float refractiveIndex1 = 1.0f; // 空气的折射率
     public float refractiveIndex2 = 1.5f; // 目标介质的折射率
+     public int maxBounces = 100; // 最大反射/折射次数
 
     // Start is called before the first frame update
 
@@ -107,7 +110,7 @@ public class LaserController : MonoBehaviour
         if(transform.GetComponent<PointController>() && transform.GetComponent<PointController>().isHit == false) return;
         
         float length = 100f;
-        float laserEndRotation = 180;
+        // float laserEndRotation = 180;
         Vector2 endPosition;
         linerenderer.positionCount = 1;
         int i = 0;
@@ -120,7 +123,7 @@ public class LaserController : MonoBehaviour
 
 
 
-        LightCheck(ref direction, ref length, ref laserEndRotation, ref i, ref curPosition, ref hit, new HashSet<Vector2>());
+        // LightCheck(ref direction, ref length, ref laserEndRotation, ref i, ref curPosition, ref hit, new HashSet<Vector2>());
 
         // linerenderer.SetPosition(1, new Vector3(length, 0, 0));
         //  endVFX.SetActive(true); 
@@ -153,6 +156,59 @@ public class LaserController : MonoBehaviour
             Relinerenderer.SetPosition(++i, curPosition);
         }
 
+        void TraceLight(Vector2 origin, Vector2 direction, int currentBounces)
+        {
+            if (currentBounces > maxBounces) return;
+
+            RaycastHit2D hit;
+
+            // if(Physics2D.Raycast(origin, direction, layerMask, out hit)){
+                
+            //     Vector2 hitPoint = hit.point;
+            //     linerenderer.positionCount += 2;
+            //     linerenderer.SetPosition(linerenderer.positionCount - 2, hitPoint);
+            //     Vector2 normal = hit.normal;
+                
+            //     if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point"))
+            //     {
+            //         // Debug.Log("打到了点上");
+            //         hit.transform.gameObject.GetComponent<PointController>().hitByLaser(linerenderer);
+            //     }
+
+            //     if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Reflectable"))
+            //     {
+            //         Vector2 reflectedDirection = Vector2.Reflect(direction, normal);
+            //         linerenderer.SetPosition(linerenderer.positionCount - 1, hitPoint + reflectedDirection * 10);
+            //         TraceLight(hitPoint, reflectedDirection, currentBounces + 1);
+            //     }
+
+            //     else if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Refractable"))
+            //     {
+            //         // 计算反射
+            //         Vector2 reflectedDirection = Vector2.Reflect(direction, normal);
+            //         linerenderer.SetPosition(linerenderer.positionCount - 1, hitPoint + reflectedDirection * 10);
+            //         // 计算折射
+            //         float n1 = refractiveIndex1;
+            //         float n2 = refractiveIndex2;
+            //         float cosI = -Vector3.Dot(normal, direction);
+            //         float sinT2 = (n1 / n2) * (n1 / n2) * (1.0f - cosI * cosI);
+            //         if (sinT2 <= 1.0f)
+            //         {
+            //             float cosT = Mathf.Sqrt(1.0f - sinT2);
+            //             Vector2 refractedDirection = (n1 / n2) * direction + (n1 / n2 * cosI - cosT) * normal;
+            //             linerenderer.positionCount += 1;
+            //             linerenderer.SetPosition(linerenderer.positionCount - 1, hitPoint + refractedDirection * 10);
+
+            //             // 递归调用处理折射光线
+            //             TraceLight(hitPoint, refractedDirection, currentBounces + 1);
+            //         }
+
+            //         // 递归调用处理反射光线
+            //         TraceLight(hitPoint, reflectedDirection, currentBounces + 1);
+
+            //     }
+            // }
+        }
 
         void LightCheck(ref Vector2 direction, ref float length, ref float laserEndRotation, ref int i, ref Vector2 curPosition, ref RaycastHit2D hit, HashSet<Vector2> visitedPoints)
         {
