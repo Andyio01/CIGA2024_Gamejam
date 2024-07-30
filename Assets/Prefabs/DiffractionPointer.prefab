@@ -9853,6 +9853,10 @@ MonoBehaviour:
   thickness: 3
   noiseScale: 0.3
   enhance: 3
+  bias: 0.2
+  refractiveIndex1: 1
+  refractiveIndex2: 1.5
+  maxBounces: 100
 --- !u!114 &264325742296303605
 MonoBehaviour:
   m_ObjectHideFlags: 0

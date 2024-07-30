@@ -7,6 +7,7 @@ TagManager:
   - Blocker
   - GameManager
   - Reciever
+  - Plane
   layers:
   - Default
   - TransparentFX
