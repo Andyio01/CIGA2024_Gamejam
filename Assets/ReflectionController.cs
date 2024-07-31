@@ -16,8 +16,11 @@ public class ReflectionController : MonoBehaviour
 
     [SerializeField]
     private PlaneType planeType;
-    private bool isHit = true;
-    public Transform EmissionPoint;
+    public bool isHit = true;
+    public Transform ReflectionPoint;
+    public Transform RefractionPoint;
+    public float refractiveIndex1 = 1.0f; // 空气的折射率
+    public float refractiveIndex2 = 1.5f; // 目标介质的折射率
     // 该点暂时未被击中
     private bool waitForHit = false;
     // Start is called before the first frame update
@@ -31,13 +34,31 @@ public class ReflectionController : MonoBehaviour
         if (!isHit)
         {
             // 没有被击中时关闭LineRender
-            GetComponentInChildren<LineRenderer>().enabled = false;
-            if(LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
+            ReflectionPoint.GetComponentInChildren<LineRenderer>().enabled = false;
+            RefractionPoint.GetComponentInChildren<LineRenderer>().enabled = false;
+            // if(LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
             // Debug.Log("No Hit");
         }
         else{
             // 有前置光线时开启LineRender
-            GetComponentInChildren<LineRenderer>().enabled = true;
+
+            // 如果是镜子表面，开启反射光线并关闭折射光线
+            if (planeType == PlaneType.Mirror){
+                RefractionPoint.GetComponentInChildren<LineRenderer>().enabled = false;
+                ReflectionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
+            }
+            // 如果是水面，开启反射和折射光线
+            else if (planeType == PlaneType.water){
+                ReflectionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
+                RefractionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
+            }
+            
+            // GetComponentInChildren<LineRenderer>().enabled = true;
+            // LineRenderer[] line = GetComponentsInChildren<LineRenderer>();
+            // for (int i = 0; i < line.Length; i++)
+            // {
+            //     line[i].enabled = true;
+            // }
             waitForHit = false;
             // gameObject.GetComponent<LaserController>().SetLength(0.0f);
             // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
@@ -52,7 +73,7 @@ public class ReflectionController : MonoBehaviour
     // // private void OnCollisionEnter(Collision other) {
     // //     Debug.Log("Hited By:" + other.gameObject.name);
     // // }
-    public void hitByLaser(Vector2 direction, Vector2 hitPoistion)
+    public void hitByLaser(Vector2 refractDirection, Vector2 reflectDirection, Vector2 hitPoistion)
     {
         
         isHit = true;
@@ -60,10 +81,25 @@ public class ReflectionController : MonoBehaviour
         // // 获取射线方向
         // Vector3 direction = GetComponentInChildren<LineRenderer>().GetPosition(1) - GetComponentInChildren<LineRenderer>().GetPosition(0);
         // 旋转自身
-        EmissionPoint.position = hitPoistion;
-        EmissionPoint.right = direction;
-        if(!LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) 
-        LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
+
+        // 如果是镜子表面，执行反射
+        if (planeType == PlaneType.Mirror){
+            ReflectionPoint.position = hitPoistion;
+            ReflectionPoint.right = reflectDirection;
+        }
+        // 如果是水面，执行反射和折射
+        else if (planeType == PlaneType.water){
+            ReflectionPoint.position = hitPoistion;
+            ReflectionPoint.right = reflectDirection;
+            // 折射
+            RefractionPoint.position = hitPoistion;
+            RefractionPoint.right = refractDirection;
+
+
+        }
+        
+        // if(!LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) 
+        // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
     }
 
 }

@@ -55,9 +55,10 @@ public class LaserController : MonoBehaviour
     public int maxBounces = 100; // 最大反射/折射次数
 
     // Start is called before the first frame update
-
+    public GameObject ParentObject;
     void Start()
     {
+        if(transform.parent) ParentObject = transform.parent.gameObject;
         layerMask |= LayerMask.GetMask("IgnoreLaser");
         layerMask |= LayerMask.GetMask("Player");
         layerMask = ~layerMask;
@@ -109,6 +110,10 @@ public class LaserController : MonoBehaviour
     {
         
         if(transform.GetComponent<PointController>() && transform.GetComponent<PointController>().isHit == false) return;
+        if(ParentObject != null)
+            if(ParentObject.GetComponent<ReflectionController>() && ParentObject.GetComponent<ReflectionController>().isHit == false) 
+                return;
+
         
         float length = 100f;
         // float laserEndRotation = 180;
@@ -118,13 +123,13 @@ public class LaserController : MonoBehaviour
         int j = 0;
         Vector2 curPosition = EmissionPoint.transform.position;
         RaycastHit2D hit = Physics2D.Raycast(curPosition, direction.normalized, length, layerMask);
-
+        Debug.DrawLine(curPosition, curPosition + direction * 100f, Color.red);
 
 
 
 
         // TraceLight(curPosition, direction, i, ref hit);
-        LightCheck(direction, length, ref i, hit, new HashSet<Vector2>());
+        LightCheck(direction, length, i, hit, new HashSet<Vector2>());
 
         // linerenderer.SetPosition(1, new Vector3(length, 0, 0));
         //  endVFX.SetActive(true); 
@@ -216,13 +221,13 @@ public class LaserController : MonoBehaviour
             }
         
 
-        void LightCheck(Vector2 direction,  float length, ref int i, RaycastHit2D hit, HashSet<Vector2> visitedPoints)
+        void LightCheck(Vector2 direction,  float length, int i, RaycastHit2D hit, HashSet<Vector2> visitedPoints)
         {
             bool iterEnd = false; // 递归结束标识符
             // 超过最大反弹次数
             if(i > 100) return;
 
-            if (hit.collider != null && i < 5)
+            while (hit.collider != null && i < 100)
             {
                 // Hit the player
                 // if(hit.transform.gameObject.name.Equals("Player") && deadly){
@@ -243,14 +248,30 @@ public class LaserController : MonoBehaviour
                     hit.transform.gameObject.GetComponent<PointController>().hitByLaser(linerenderer);
                 }
                 else if (hit.transform.gameObject.tag == "Plane") {
+                    // 阻断当前射线
                     length = (hit.point - curPosition).magnitude;
                     endPosition = curPosition + direction * length;
                     linerenderer.positionCount++;
                     linerenderer.SetPosition(++i, endPosition);
+                    Vector2 refractedDirection = new Vector2();
+                    // 计算反射
                     Vector2 normal = hit.normal;
                     Vector2 reflectDirection = Vector2.Reflect(direction.normalized, normal);
+                    // 计算折射
+                    float n1 = refractiveIndex1;
+                    float n2 = refractiveIndex2;
+
+                    float cosI = -Vector3.Dot(normal, direction);
+                    float sinT2 = (n1 / n2) * (n1 / n2) * (1.0f - cosI * cosI);
+                    if (sinT2 <= 1.0f)
+                    {
+                        float cosT = Mathf.Sqrt(1.0f - sinT2);
+                        refractedDirection = (n1 / n2) * direction + (n1 / n2 * cosI - cosT) * normal;
+                    }
                     // Logic for the reciever(win the game, show hidden object, etc.)
-                    hit.transform.gameObject.GetComponent<ReflectionController>().hitByLaser(reflectDirection, hit.point);
+
+                    // 传入折射和反射角度并创建新的光线
+                    hit.transform.gameObject.GetComponent<ReflectionController>().hitByLaser(refractedDirection, reflectDirection, hit.point);
                 }
                 // Hit the object that is not reflectable
 
@@ -290,7 +311,7 @@ public class LaserController : MonoBehaviour
 
                     hit = Physics2D.Raycast(curPosition + 0.01f * reflectDirection, reflectDirection, 1000f, layerMask);
                     Debug.DrawLine(curPosition, curPosition + reflectDirection * 100f, Color.red);
-                    LightCheck(reflectDirection, length,  ref i, hit, new HashSet<Vector2>());
+                    LightCheck(reflectDirection, length,  i, hit, new HashSet<Vector2>());
 
                     // 计算折射
                     linerenderer.positionCount++;
@@ -309,7 +330,7 @@ public class LaserController : MonoBehaviour
                         Vector2 refractedDirection = (n1 / n2) * direction + (n1 / n2 * cosI - cosT) * normal;
                         hit = Physics2D.Raycast(curPosition + 0.01f * refractedDirection, refractedDirection, 1000f, layerMask);
                         Debug.DrawLine(curPosition, curPosition + refractedDirection * 100f, Color.blue);
-                        LightCheck(refractedDirection, length,  ref i, hit, new HashSet<Vector2>());
+                        LightCheck(refractedDirection, length,  i, hit, new HashSet<Vector2>());
                         iterEnd = true;
                     }
 
@@ -400,7 +421,7 @@ public class LaserController : MonoBehaviour
                         // infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
                 }
             }
-            if(!iterEnd)
+            
             {
                 endPosition = curPosition + direction * length;
                 linerenderer.positionCount++;

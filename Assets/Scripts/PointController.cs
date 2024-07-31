@@ -49,7 +49,7 @@ public class PointController : MonoBehaviour
             // 没有前置光线时关闭LineRender
             if(gameObject.transform.tag != "Blocker") 
             GetComponentInChildren<LineRenderer>().enabled = false;
-            else if(gameObject.transform.tag == "Blocker" && !waitForHit)
+            if(!waitForHit)
             {
                 StartCoroutine(WaitAndDestroy(1f));
             }
