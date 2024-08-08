@@ -52,7 +52,7 @@ public class LaserController : MonoBehaviour
     float minDistanceThreshold = 3f; // Adjust as needed
     public float refractiveIndex1 = 1.0f; // 空气的折射率
     public float refractiveIndex2 = 1.5f; // 目标介质的折射率
-    public int maxBounces = 100; // 最大反射/折射次数
+    public int maxbounce = 0; // 最大反射/折射次数
 
     // Start is called before the first frame update
     public GameObject ParentObject;
@@ -119,8 +119,8 @@ public class LaserController : MonoBehaviour
         // float laserEndRotation = 180;
         Vector2 endPosition;
         linerenderer.positionCount = 1;
-        int i = 0;
-        int j = 0;
+        //int i = 0;
+        //int j = 0;
         Vector2 curPosition = EmissionPoint.transform.position;
         RaycastHit2D hit = Physics2D.Raycast(curPosition, direction.normalized, length, layerMask);
         Debug.DrawLine(curPosition, curPosition + direction * 100f, Color.red);
@@ -129,7 +129,7 @@ public class LaserController : MonoBehaviour
 
 
         // TraceLight(curPosition, direction, i, ref hit);
-        LightCheck(direction, length, i, hit, new HashSet<Vector2>());
+        LightCheck(direction, length, maxbounce, hit, new HashSet<Vector2>());
 
         // linerenderer.SetPosition(1, new Vector3(length, 0, 0));
         //  endVFX.SetActive(true); 
@@ -164,7 +164,7 @@ public class LaserController : MonoBehaviour
 
         void TraceLight(Vector2 origin, Vector2 direction, int currentBounces, ref RaycastHit2D hit)
         {
-            if (currentBounces > maxBounces) return;
+            //if (currentBounces > maxBounces) return;
 
             // RaycastHit2D hit = Physics2D.Raycast(origin, direction, layerMask);
                 
@@ -225,9 +225,9 @@ public class LaserController : MonoBehaviour
         {
             bool iterEnd = false; // 递归结束标识符
             // 超过最大反弹次数
-            if(i > 100) return;
+            if(i >= 1) return;
 
-            while (hit.collider != null && i < 100)
+            while (hit.collider != null && i < 1)
             {
                 // Hit the player
                 // if(hit.transform.gameObject.name.Equals("Player") && deadly){
@@ -427,6 +427,8 @@ public class LaserController : MonoBehaviour
                 linerenderer.positionCount++;
                 linerenderer.SetPosition(++i, endPosition);
                 // Debug.Log("加点位置5");
+                //maxbounce = 0;
+                //Debug.Log(this.gameObject.name + maxbounce);
                 return;
             }
         }
