@@ -16,7 +16,7 @@ public class ReflectionController : MonoBehaviour
 
     [SerializeField]
     private PlaneType planeType;
-    public bool isHit = true;
+    public bool isHit = false;
     public Transform ReflectionPoint;
     public Transform RefractionPoint;
     public float refractiveIndex1 = 1.0f; // 空气的折射率
@@ -64,7 +64,7 @@ public class ReflectionController : MonoBehaviour
             // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
             // Debug.Log("Hit");
         }
-        isHit = false;
+        // isHit = false;
 
         
     }
@@ -102,4 +102,9 @@ public class ReflectionController : MonoBehaviour
         // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
     }
 
+    public void unHitted()
+    {
+        isHit = false;
+        
+    }
 }

@@ -92,6 +92,10 @@ public class PointController : MonoBehaviour
         LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
     }
 
+    public void unHitted()
+    {
+        isHit = false;
+    }
     IEnumerator WaitAndDestroy(float waitTime)
     {
         waitForHit = true;
