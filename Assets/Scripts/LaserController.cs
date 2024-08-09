@@ -96,7 +96,7 @@ public class LaserController : MonoBehaviour
 
         UpdateStartPosition(direction);
         UpdateEndPosition(direction);
-        if (Rotation) RotateLauncher();
+        //if (Rotation) RotateLauncher();
 
     }
 
@@ -224,9 +224,13 @@ public class LaserController : MonoBehaviour
 
         void LightCheck(Vector2 direction,  float length, int i, RaycastHit2D hit, HashSet<Vector2> visitedPoints)
         {
-            bool iterEnd = false; // 递归结束标识符
-            // 超过最大反弹次数
-            if(i >= 1) return;
+
+            //// 超过最大反弹次数
+            //if (i >= 1)
+            //{ 
+            //    Debug.Log("Out of Bound !");
+            //    return;
+            //} 
 
             if (hit.collider != null && i < 1)
             {
@@ -238,7 +242,18 @@ public class LaserController : MonoBehaviour
                 //         break;
                 //     }
                 // Hit the point
-
+                if(curHitted && curHitted != hit.transform.gameObject)
+                {
+                    
+                    if (curHitted.GetComponent<ReflectionController>())
+                    {
+                            curHitted.GetComponent<ReflectionController>().unHitted();
+                    }
+                    else if (curHitted.GetComponent<PointController>())
+                    {
+                            curHitted.GetComponent<PointController>().unHitted();
+                    }
+                }
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point"))
                 {
                     curHitted = hit.transform.gameObject;
@@ -256,6 +271,7 @@ public class LaserController : MonoBehaviour
                     endPosition = curPosition + direction * length;
                     linerenderer.positionCount++;
                     linerenderer.SetPosition(++i, endPosition);
+
                     Vector2 refractedDirection = new Vector2();
                     // 计算反射
                     Vector2 normal = hit.normal;
@@ -440,6 +456,7 @@ public class LaserController : MonoBehaviour
                         }
                         curHitted = null;
                     }
+                maxbounce = 0;
                 endPosition = curPosition + direction * length;
                 linerenderer.positionCount++;
                 linerenderer.SetPosition(++i, endPosition);

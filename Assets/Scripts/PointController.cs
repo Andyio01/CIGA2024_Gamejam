@@ -13,7 +13,8 @@ public class PointController : MonoBehaviour
     private bool isVanishing = false;
     // 该点暂时未被击中
     private bool waitForHit = false;
-    // Start is called before the first frame update
+    // 初始点不会直接消失
+    public bool isInitial;
     void Start()
     {
         
@@ -49,7 +50,7 @@ public class PointController : MonoBehaviour
             // 没有前置光线时关闭LineRender
             if(gameObject.transform.tag != "Blocker") 
             GetComponentInChildren<LineRenderer>().enabled = false;
-            if(!waitForHit)
+            if(!waitForHit && !isInitial)
             {
                 StartCoroutine(WaitAndDestroy(1f));
             }

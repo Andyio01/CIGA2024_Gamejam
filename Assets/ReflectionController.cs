@@ -100,6 +100,10 @@ public class ReflectionController : MonoBehaviour
         
         // if(!LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) 
         // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
+        foreach(LineRenderer line in this.transform.GetComponentsInChildren<LineRenderer>())
+        {
+            if (!LineManager.lineRenderers.Contains(line)) LineManager.AddLineRenderer(line);
+        }
     }
 
     public void unHitted()

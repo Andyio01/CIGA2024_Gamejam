@@ -9840,6 +9840,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+  curHitted: {fileID: 0}
   EmissionPoint: {fileID: 3860253329786133458}
   startVFX: {fileID: 5515371328468557415}
   endVFX: {fileID: 1838329809170096785}
@@ -9856,7 +9857,8 @@ MonoBehaviour:
   bias: 0.2
   refractiveIndex1: 1
   refractiveIndex2: 1.5
-  maxBounces: 100
+  maxbounce: 0
+  ParentObject: {fileID: 0}
 --- !u!114 &264325742296303605
 MonoBehaviour:
   m_ObjectHideFlags: 0

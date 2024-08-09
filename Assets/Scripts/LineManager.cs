@@ -120,7 +120,7 @@ public class LineManager : MonoBehaviour
                 if(Input.GetMouseButtonDown(0)){
                     // 计算方向
                     Vector2 direction = (end - start).normalized;
-                    if(currentPointer.GetComponentInChildren<MouseHover>().IsBlocker && GameManager.BlockerNum > 0)
+                    if(currentPointer.GetComponentInChildren<MouseHover>().IsBlocker && GameManager.BlockerNum > 0 && line.gameObject.layer == LayerMask.NameToLayer("Point"))
                     {
                         GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
                         newPonit.transform.right = direction;
