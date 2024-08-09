@@ -69,7 +69,7 @@ public class LaserController : MonoBehaviour
         linerenderer.material.SetFloat("_Scale", noiseScale);
         linerenderer.material.SetFloat("_Thickness", thickness);
         Relinerenderer = GetComponentInChildren<LineRenderer>();
-        Relinerenderer.enabled = true;
+        //Relinerenderer.enabled = true;
         Relinerenderer.material.color = color * colorIntensity;
         Relinerenderer.material.SetFloat("_Scale", noiseScale);
         Relinerenderer.material.SetFloat("_Thickness", thickness);
@@ -263,6 +263,15 @@ public class LaserController : MonoBehaviour
                     linerenderer.SetPosition(++i, endPosition);
                     // Debug.Log("打到了点上");
                     hit.transform.gameObject.GetComponent<PointController>().hitByLaser(linerenderer);
+                }
+                else if (hit.transform.gameObject.tag == "Reciever") {
+                    curHitted = hit.transform.gameObject;
+                    // 阻断当前射线
+                    length = (hit.point - curPosition).magnitude;
+                    endPosition = curPosition + direction * length;
+                    linerenderer.positionCount++;
+                    linerenderer.SetPosition(++i, endPosition);
+                    hit.transform.gameObject.GetComponent<RecieverController>().hitByLaser();
                 }
                 else if (hit.transform.gameObject.tag == "Plane") {
                     curHitted = hit.transform.gameObject;
