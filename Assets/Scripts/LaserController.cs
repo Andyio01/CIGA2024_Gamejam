@@ -232,7 +232,7 @@ public class LaserController : MonoBehaviour
             //    return;
             //} 
 
-            if (hit.collider != null && i < 1)
+            if (hit.collider != null && i < 1 && GetComponentInChildren<LineRenderer>().enabled != false)
             {
                 // Hit the player
                 // if(hit.transform.gameObject.name.Equals("Player") && deadly){
@@ -450,7 +450,7 @@ public class LaserController : MonoBehaviour
                 }
             }
             
-                // 未击中任何物体的处理逻辑
+                // 未击中任何物体或当前光线处于关闭状态的处理逻辑
             else
             {
                 if(curHitted)

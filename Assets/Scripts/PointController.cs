@@ -116,7 +116,19 @@ public class PointController : MonoBehaviour
             GameManager.DiffractionNum++;
             Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
         }
-
+        // 如果当前有击中某物体，则关闭被击中物体的光线
+        GameObject curhitted = GetComponent<LaserController>().curHitted;
+        if (curhitted)
+        {
+            if (curhitted.GetComponent<ReflectionController>())
+            {
+                curhitted.GetComponent<ReflectionController>().unHitted();
+            }
+            else if (curhitted.GetComponent<PointController>())
+            {
+                curhitted.GetComponent<PointController>().unHitted();
+            }
+        }
         Destroy(this.gameObject);
         // LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
 
