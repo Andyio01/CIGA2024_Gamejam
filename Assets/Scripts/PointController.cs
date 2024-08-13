@@ -49,7 +49,10 @@ public class PointController : MonoBehaviour
         {
             // 没有前置光线时关闭LineRender
             if(gameObject.transform.tag != "Blocker") 
-            GetComponentInChildren<LineRenderer>().enabled = false;
+            {
+                GetComponentInChildren<LineRenderer>().enabled = false;
+                GetComponent<LaserController>().enabled = false;
+            }
             if(!waitForHit && !isInitial)
             {
                 StartCoroutine(WaitAndDestroy(1f));
@@ -63,7 +66,11 @@ public class PointController : MonoBehaviour
         }
         else{
             // 有前置光线时开启LineRender
-            if(gameObject.transform.tag != "Blocker") GetComponentInChildren<LineRenderer>().enabled = true;
+            if(gameObject.transform.tag != "Blocker") 
+            {
+                GetComponentInChildren<LineRenderer>().enabled = true;
+                GetComponent<LaserController>().enabled = true;
+            }
             waitForHit = false;
             // gameObject.GetComponent<LaserController>().SetLength(0.0f);
             // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
@@ -116,6 +123,13 @@ public class PointController : MonoBehaviour
             GameManager.DiffractionNum++;
             Debug.Log("当前DiffractionNum: " + GameManager.DiffractionNum);
         }
+        
+        Destroy(this.gameObject);
+        // LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
+
+    }
+    
+    private void OnDestroy() {
         // 如果当前有击中某物体，则关闭被击中物体的光线
         GameObject curhitted = GetComponent<LaserController>().curHitted;
         if (curhitted)
@@ -129,9 +143,7 @@ public class PointController : MonoBehaviour
                 curhitted.GetComponent<PointController>().unHitted();
             }
         }
-        Destroy(this.gameObject);
-        // LineManager.DeleteLineRenderer(this.gameObject.GetComponentInChildren<LineRenderer>());
-
+        if(LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
     }
 
     // internal void hitByLaser(Vector2 normalized)

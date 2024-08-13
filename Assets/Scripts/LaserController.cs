@@ -33,6 +33,7 @@ public class LaserController : MonoBehaviour
     private float tolerance = 0.01f; // Adjust the tolerance as needed
 
     public GameObject curHitted;
+    public GameObject preHitted;
     [SerializeField] public ParticleSystem EmissionPoint;
     [SerializeField] private GameObject startVFX;
     [SerializeField] private GameObject endVFX;
@@ -248,6 +249,7 @@ public class LaserController : MonoBehaviour
                     if (curHitted.GetComponent<ReflectionController>())
                     {
                             curHitted.GetComponent<ReflectionController>().unHitted();
+                            Debug.Log("Close the light");
                     }
                     else if (curHitted.GetComponent<PointController>())
                     {
@@ -424,6 +426,8 @@ public class LaserController : MonoBehaviour
                 {
                     
                     // endVFX.SetActive(true);
+                    curHitted = hit.transform.gameObject;
+
                     length = (hit.point - curPosition).magnitude;
                    
                     endPosition = curPosition + direction * length;
@@ -453,18 +457,18 @@ public class LaserController : MonoBehaviour
                 // 未击中任何物体或当前光线处于关闭状态的处理逻辑
             else
             {
-                if(curHitted)
-                    {
-                        if(curHitted.GetComponent<ReflectionController>())
-                        {
-                            curHitted.GetComponent<ReflectionController>().unHitted();
-                        }
-                        else if(curHitted.GetComponent<PointController>())
-                        {
-                            curHitted.GetComponent<PointController>().unHitted();
-                        }
-                        curHitted = null;
-                    }
+                // if(curHitted)
+                //     {
+                //         if(curHitted.GetComponent<ReflectionController>())
+                //         {
+                //             curHitted.GetComponent<ReflectionController>().unHitted();
+                //         }
+                //         else if(curHitted.GetComponent<PointController>())
+                //         {
+                //             curHitted.GetComponent<PointController>().unHitted();
+                //         }
+                //         curHitted = null;
+                //     }
                 maxbounce = 0;
                 endPosition = curPosition + direction * length;
                 linerenderer.positionCount++;
