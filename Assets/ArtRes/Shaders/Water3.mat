@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Emitter
-  m_Shader: {fileID: -6465566751694194690, guid: eefaa336440c67648885ad52f3532c1e, type: 3}
+  m_Name: Water3
+  m_Shader: {fileID: -6465566751694194690, guid: 075444c73a41d90479a867f8623de2f4, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,12 +20,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
+    - _SampleTexture2D_62abad4b5499433db13466c7df5baa75_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 8dc8eaf65c10e98439660f72c38ee07a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: c79833cc825adb24390fa2edc77608ab, type: 3}
+    - _SampleTexture2D_6c1762e6b341441aa677764d23953b94_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 60034cbea02217d478211c55ef6091a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e40209b7a8a34a6092862a5fe4527b6d_Texture_1:
+        m_Texture: {fileID: 2800000, guid: cd96301d5381f9d4588f705e330beb07, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WaterRenderTex:
+        m_Texture: {fileID: 8400000, guid: f0075ec52c78104448cd8c50053a1472, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -41,7 +49,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Lerp: 0
+    - _MoveSpeed: 0.1
+    - _Opacity: 1
+    - _ReflectionStrength: 1
+    - _Refraction_Strength: 1
     m_Colors:
-    - _Color: {r: 1.3253083, g: 0.55846316, b: 0.6284359, a: 1}
+    - _Color: {r: 0.9694168, g: 0.61006284, b: 1, a: 1}
   m_BuildTextureStacks: []
