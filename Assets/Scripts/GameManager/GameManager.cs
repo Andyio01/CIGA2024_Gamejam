@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public bool IsShowGamePauseWindow { get => isShowGamePauseWindow; set => isShowGamePauseWindow = value; }
     public static int BlockerNum;
     public static int DiffractionNum;
+    public GameObject initialEmitter;
+    public static GameObject curEmitter;
+    public static float curRotation;
 
     public Texture2D DefaultCursor;
     public Texture2D DragCursor;
@@ -100,5 +103,19 @@ public class GameManager : MonoBehaviour
         }
         InputMgr.Instance.Disable();
         instance = null;
+    }
+    private void Start()
+    {
+        curEmitter = initialEmitter;
+    }
+
+    public static void setEmitter(GameObject Emitter)
+    {
+        curEmitter = Emitter;
+        curRotation = Emitter.transform.rotation.z;
+    }
+    public static GameObject getEmitter()
+    {
+        return curEmitter;
     }
 }

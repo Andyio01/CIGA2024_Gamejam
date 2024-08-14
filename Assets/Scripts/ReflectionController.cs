@@ -127,6 +127,20 @@ public class ReflectionController : MonoBehaviour
         }
         else
         {
+             if (planeType == PlaneType.Mirror){
+                ReflectionPoint.position = hitPoistion;
+                ReflectionPoint.right = reflectDirection;
+            }
+            // 如果是水面，执行反射和折射
+            else if (planeType == PlaneType.water){
+                ReflectionPoint.position = hitPoistion;
+                ReflectionPoint.right = reflectDirection;
+                // 折射
+                RefractionPoint.position = hitPoistion;
+                RefractionPoint.right = refractDirection;
+
+
+            }
             return;
         }
     }

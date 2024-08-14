@@ -29,6 +29,7 @@ public class RecieverController : MonoBehaviour
         Camera.main.transform.DOMove(NewCameraPoisition, 2f);
         if (NewEmitter)
         {
+            GameManager.setEmitter(NewEmitter);
             LineRenderer line = NewEmitter.GetComponentInChildren<LineRenderer>();
             NewEmitter.GetComponentInChildren<LaserController>().enabled = true;
             if (!LineManager.lineRenderers.Contains(line)) LineManager.AddLineRenderer(line);
