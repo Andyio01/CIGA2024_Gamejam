@@ -66,21 +66,21 @@ public class LaserController : MonoBehaviour
         layerMask = ~layerMask;
         linerenderer = GetComponentInChildren<LineRenderer>();
         linerenderer.enabled = true;
-        linerenderer.material.color = color * colorIntensity;
-        linerenderer.material.SetFloat("_Scale", noiseScale);
-        linerenderer.material.SetFloat("_Thickness", thickness);
-        Relinerenderer = GetComponentInChildren<LineRenderer>();
-        //Relinerenderer.enabled = true;
-        Relinerenderer.material.color = color * colorIntensity;
-        Relinerenderer.material.SetFloat("_Scale", noiseScale);
-        Relinerenderer.material.SetFloat("_Thickness", thickness);
-        ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>();
-        foreach (ParticleSystem particle in particles)
-        {
-            Renderer rend = particle.GetComponent<Renderer>();
-            // rend.material.SetColor("_BaseColor", color * colorIntensity);
-            rend.material.SetColor("_EmissionColor", color * (colorIntensity + enhance));
-        }
+        //linerenderer.material.color = color * colorIntensity;
+        //linerenderer.material.SetFloat("_Scale", noiseScale);
+        //linerenderer.material.SetFloat("_Thickness", thickness);
+        //Relinerenderer = GetComponentInChildren<LineRenderer>();
+        ////Relinerenderer.enabled = true;
+        //Relinerenderer.material.color = color * colorIntensity;
+        //Relinerenderer.material.SetFloat("_Scale", noiseScale);
+        //Relinerenderer.material.SetFloat("_Thickness", thickness);
+        //ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>();
+        //foreach (ParticleSystem particle in particles)
+        //{
+        //    Renderer rend = particle.GetComponent<Renderer>();
+        //    // rend.material.SetColor("_BaseColor", color * colorIntensity);
+        //    rend.material.SetColor("_EmissionColor", color * (colorIntensity + enhance));
+        //}
         // linerenderer.SetPosition(1, new Vector3(1, 0, 0));
         InitAngle = transform.rotation.eulerAngles.z;
         StartPosition = EmissionPoint.transform.position;

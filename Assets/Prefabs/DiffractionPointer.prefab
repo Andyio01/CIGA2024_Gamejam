@@ -9841,6 +9841,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   curHitted: {fileID: 0}
+  preHitted: {fileID: 0}
   EmissionPoint: {fileID: 3860253329786133458}
   startVFX: {fileID: 5515371328468557415}
   endVFX: {fileID: 1838329809170096785}
@@ -9853,7 +9854,7 @@ MonoBehaviour:
   colorIntensity: 4.3
   thickness: 3
   noiseScale: 0.3
-  enhance: 3
+  enhance: 1
   bias: 0.2
   refractiveIndex1: 1
   refractiveIndex2: 1.5
@@ -9872,6 +9873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHit: 0
+  isInitial: 0
 --- !u!58 &7194004200191980399
 CircleCollider2D:
   m_ObjectHideFlags: 0
