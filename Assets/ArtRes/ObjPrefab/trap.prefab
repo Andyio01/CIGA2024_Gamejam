@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserMaterial: {fileID: 0}
   DeathAudio: {fileID: 0}
+  DeadUI: {fileID: 0}
 --- !u!82 &2764180959236215972
 AudioSource:
   m_ObjectHideFlags: 0
