@@ -9,6 +9,7 @@ TagManager:
   - Reciever
   - Plane
   - Trap
+  - Button
   layers:
   - Default
   - TransparentFX

@@ -255,6 +255,10 @@ public class LaserController : MonoBehaviour
                     {
                             curHitted.GetComponent<PointController>().unHitted();
                     }
+                    else if (curHitted.GetComponent<ButtonController>())
+                    {
+                        curHitted.GetComponent<ButtonController>().unHitted();
+                    }
                 }
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Point"))
                 {
@@ -301,7 +305,7 @@ public class LaserController : MonoBehaviour
                     // Logic for the reciever(win the game, show hidden object, etc.)
 
                     // 传入折射和反射角度并创建新的光线
-                    hit.transform.gameObject.GetComponent<ReflectionController>().hitByLaser(refractedDirection, reflectDirection, hit.point);
+                    hit.transform.gameObject.GetComponent<ReflectionController>().hitByLaser(refractedDirection, reflectDirection, hit.point, -cosI);
 
                 }
                 else if (hit.transform.gameObject.tag == "Trap")
@@ -314,125 +318,136 @@ public class LaserController : MonoBehaviour
                     linerenderer.SetPosition(++i, endPosition);
                     hit.transform.gameObject.GetComponent<TrapController>().hitByLaser();
                 }
+                // 被机关触发所开启的激光，不能二次触发机关
+                else if (hit.transform.gameObject.tag == "Button" && hit.transform.GetComponent<ButtonController>().triggerAble == true)
+                {
+                    curHitted = hit.transform.gameObject;
+                    // 阻断当前射线
+                    length = (hit.point - curPosition).magnitude;
+                    endPosition = curPosition + direction * length;
+                    linerenderer.positionCount++;
+                    linerenderer.SetPosition(++i, endPosition);
+                    hit.transform.gameObject.GetComponent<ButtonController>().hitByLaser();
+                }
                 // Hit the object that is not reflectable
 
-                        // Hit the object that is reflectable
-                        // else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Reflectable"))
-                        // {
-                        //     // reflectLaser(StartPosition, direction, hit);
-                        //     // endVFX.SetActive(false);
-                        //     // if (hit.transform.gameObject.tag == "Mirror") {
-                        //     //     // Logic for the mirror(win the game, show hidden object, etc.)
-                        //     //     hit.transform.gameObject.GetComponentInParent<HittedAndLight>().Hitted();
-                        //     //     // Debug.Log("Hit the mirror");
-                        //     // }
-                        //     Vector2 curPosition = hit.point;
-                        //     linerenderer.positionCount++;
-                        //     linerenderer.SetPosition(++i, curPosition);
-                        //     Debug.Log("加点位置1");
-                        //     Vector2 normal = hit.normal;
-                        //     direction = Vector2.Reflect(direction.normalized, normal);
+                // Hit the object that is reflectable
+                // else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Reflectable"))
+                // {
+                //     // reflectLaser(StartPosition, direction, hit);
+                //     // endVFX.SetActive(false);
+                //     // if (hit.transform.gameObject.tag == "Mirror") {
+                //     //     // Logic for the mirror(win the game, show hidden object, etc.)
+                //     //     hit.transform.gameObject.GetComponentInParent<HittedAndLight>().Hitted();
+                //     //     // Debug.Log("Hit the mirror");
+                //     // }
+                //     Vector2 curPosition = hit.point;
+                //     linerenderer.positionCount++;
+                //     linerenderer.SetPosition(++i, curPosition);
+                //     Debug.Log("加点位置1");
+                //     Vector2 normal = hit.normal;
+                //     direction = Vector2.Reflect(direction.normalized, normal);
 
-                        //     hit = Physics2D.Raycast(curPosition + 0.01f * direction, direction, 1000f, layerMask);
-                        //     Debug.DrawLine(curPosition, curPosition + direction * 100f, Color.red);
-                        //     // infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
+                //     hit = Physics2D.Raycast(curPosition + 0.01f * direction, direction, 1000f, layerMask);
+                //     Debug.DrawLine(curPosition, curPosition + direction * 100f, Color.red);
+                //     // infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
 
-                        // }
-                        // else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Refractable"))
-                        // {
+                // }
+                // else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Refractable"))
+                // {
 
-                        //     // 计算反射
-                        //     Vector2 curPosition = hit.point;
-                        //     linerenderer.positionCount++;
-                        //     linerenderer.SetPosition(++i, curPosition);
-                        //     Debug.Log("加点位置2");
+                //     // 计算反射
+                //     Vector2 curPosition = hit.point;
+                //     linerenderer.positionCount++;
+                //     linerenderer.SetPosition(++i, curPosition);
+                //     Debug.Log("加点位置2");
 
-                        //     Vector2 normal = hit.normal;
-                        //     Vector2 reflectDirection = Vector2.Reflect(direction.normalized, normal);
+                //     Vector2 normal = hit.normal;
+                //     Vector2 reflectDirection = Vector2.Reflect(direction.normalized, normal);
 
-                        //     hit = Physics2D.Raycast(curPosition + 0.01f * reflectDirection, reflectDirection, 1000f, layerMask);
-                        //     Debug.DrawLine(curPosition, curPosition + reflectDirection * 100f, Color.red);
-                        //     LightCheck(reflectDirection, length,  i, hit, new HashSet<Vector2>());
+                //     hit = Physics2D.Raycast(curPosition + 0.01f * reflectDirection, reflectDirection, 1000f, layerMask);
+                //     Debug.DrawLine(curPosition, curPosition + reflectDirection * 100f, Color.red);
+                //     LightCheck(reflectDirection, length,  i, hit, new HashSet<Vector2>());
 
-                        //     // 计算折射
-                        //     linerenderer.positionCount++;
-                        //     linerenderer.SetPosition(++i, curPosition); //新建折射起点
-                        //     Debug.Log("加点位置3");
-
-
-                        //     float n1 = refractiveIndex1;
-                        //     float n2 = refractiveIndex2;
-
-                        //     float cosI = -Vector3.Dot(normal, direction);
-                        //     float sinT2 = (n1 / n2) * (n1 / n2) * (1.0f - cosI * cosI);
-                        //     if (sinT2 <= 1.0f)
-                        //     {
-                        //         float cosT = Mathf.Sqrt(1.0f - sinT2);
-                        //         Vector2 refractedDirection = (n1 / n2) * direction + (n1 / n2 * cosI - cosT) * normal;
-                        //         hit = Physics2D.Raycast(curPosition + 0.01f * refractedDirection, refractedDirection, 1000f, layerMask);
-                        //         Debug.DrawLine(curPosition, curPosition + refractedDirection * 100f, Color.blue);
-                        //         LightCheck(refractedDirection, length,  i, hit, new HashSet<Vector2>());
-                        //         iterEnd = true;
-                        //     }
-
-                        // infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
-                        // bool pointVisited = false;
-                        // if (pointVisited)
-                        // {
-                        //     break;
-                        // }
-                        //     // If the point has already been visited, break to avoid infinite loop
-
-                        //     visitedPoints.Add(hit.point);
-
-                        //     Debug.Log(hit.point);
-                        //     Debug.Log(visitedPoints);
-                        //     RaycastHit2D ihit = hit;
-                        //     Vector2 idirection = direction;
+                //     // 计算折射
+                //     linerenderer.positionCount++;
+                //     linerenderer.SetPosition(++i, curPosition); //新建折射起点
+                //     Debug.Log("加点位置3");
 
 
+                //     float n1 = refractiveIndex1;
+                //     float n2 = refractiveIndex2;
 
-                        //     curPosition = hit.point;
-                        //     linerenderer.positionCount++;
-                        //     linerenderer.SetPosition(++i, curPosition);
-                        //     Vector2 normal = hit.normal;
-                        //     direction = Vector2.Reflect(direction.normalized, normal);
+                //     float cosI = -Vector3.Dot(normal, direction);
+                //     float sinT2 = (n1 / n2) * (n1 / n2) * (1.0f - cosI * cosI);
+                //     if (sinT2 <= 1.0f)
+                //     {
+                //         float cosT = Mathf.Sqrt(1.0f - sinT2);
+                //         Vector2 refractedDirection = (n1 / n2) * direction + (n1 / n2 * cosI - cosT) * normal;
+                //         hit = Physics2D.Raycast(curPosition + 0.01f * refractedDirection, refractedDirection, 1000f, layerMask);
+                //         Debug.DrawLine(curPosition, curPosition + refractedDirection * 100f, Color.blue);
+                //         LightCheck(refractedDirection, length,  i, hit, new HashSet<Vector2>());
+                //         iterEnd = true;
+                //     }
 
-                        //     hit = Physics2D.Raycast(curPosition + 0.01f * direction, direction, 1000f, layerMask);
-                        //     Debug.DrawLine(curPosition, curPosition + direction * 100f, Color.red);
-                        //     if (Vector2.Distance(curPosition, hit.point) > minDistanceThreshold)
-                        //     {
-                        //         infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
-                        //         LightCheck(ref direction, ref length, ref laserEndRotation, ref i, ref curPosition, ref hit, visitedPoints);
-                        //     }
+                // infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
+                // bool pointVisited = false;
+                // if (pointVisited)
+                // {
+                //     break;
+                // }
+                //     // If the point has already been visited, break to avoid infinite loop
 
+                //     visitedPoints.Add(hit.point);
 
-                        //     // Calculate reflection direction
-                        //     curPosition = ihit.point;
-                        //     linerenderer.positionCount++;
-                        //     linerenderer.SetPosition(++i, curPosition);
-
-
-                        //     // Calculate refraction direction using Snell's Law
-                        //     float angle = Vector2.Angle(idirection, -ihit.normal);
-                        //     float refractedAngle = Mathf.Asin(Mathf.Sin(angle * Mathf.Deg2Rad) * 1.0f / 1.8f) * Mathf.Rad2Deg;
-                        //     Vector2 refractedDirection = Quaternion.Euler(0, 0, refractedAngle) * idirection.normalized;
-                        //     hit = Physics2D.Raycast(curPosition + 0.01f * refractedDirection, refractedDirection, 1000f, layerMask);
-                        //     Debug.DrawLine(curPosition, curPosition + refractedDirection * 100f, Color.red);
-                        //     direction = refractedDirection;
-                        //     if (Vector2.Distance(curPosition, hit.point) > minDistanceThreshold)
-                        //     {
-                        //         Debug.Log("R");
-                        //         Reinfrared(direction, length, laserEndRotation, ref j, ref curPosition, ref hit);
-                        //         //LightCheck(ref direction, ref length, ref laserEndRotation, ref i, ref curPosition, ref hit);
-                        //     }
-                        // }
+                //     Debug.Log(hit.point);
+                //     Debug.Log(visitedPoints);
+                //     RaycastHit2D ihit = hit;
+                //     Vector2 idirection = direction;
 
 
 
+                //     curPosition = hit.point;
+                //     linerenderer.positionCount++;
+                //     linerenderer.SetPosition(++i, curPosition);
+                //     Vector2 normal = hit.normal;
+                //     direction = Vector2.Reflect(direction.normalized, normal);
+
+                //     hit = Physics2D.Raycast(curPosition + 0.01f * direction, direction, 1000f, layerMask);
+                //     Debug.DrawLine(curPosition, curPosition + direction * 100f, Color.red);
+                //     if (Vector2.Distance(curPosition, hit.point) > minDistanceThreshold)
+                //     {
+                //         infrared(direction, length, laserEndRotation, ref i, ref curPosition, ref hit);
+                //         LightCheck(ref direction, ref length, ref laserEndRotation, ref i, ref curPosition, ref hit, visitedPoints);
+                //     }
 
 
-                        else
+                //     // Calculate reflection direction
+                //     curPosition = ihit.point;
+                //     linerenderer.positionCount++;
+                //     linerenderer.SetPosition(++i, curPosition);
+
+
+                //     // Calculate refraction direction using Snell's Law
+                //     float angle = Vector2.Angle(idirection, -ihit.normal);
+                //     float refractedAngle = Mathf.Asin(Mathf.Sin(angle * Mathf.Deg2Rad) * 1.0f / 1.8f) * Mathf.Rad2Deg;
+                //     Vector2 refractedDirection = Quaternion.Euler(0, 0, refractedAngle) * idirection.normalized;
+                //     hit = Physics2D.Raycast(curPosition + 0.01f * refractedDirection, refractedDirection, 1000f, layerMask);
+                //     Debug.DrawLine(curPosition, curPosition + refractedDirection * 100f, Color.red);
+                //     direction = refractedDirection;
+                //     if (Vector2.Distance(curPosition, hit.point) > minDistanceThreshold)
+                //     {
+                //         Debug.Log("R");
+                //         Reinfrared(direction, length, laserEndRotation, ref j, ref curPosition, ref hit);
+                //         //LightCheck(ref direction, ref length, ref laserEndRotation, ref i, ref curPosition, ref hit);
+                //     }
+                // }
+
+
+
+
+
+                else
                 {
                     
                     // endVFX.SetActive(true);
@@ -491,12 +506,26 @@ public class LaserController : MonoBehaviour
         }
     }
 
-    private void RotateLauncher()
+    private void OnDisable()
     {
-        if (RotationPeriod == 0) return;
-        time += Time.deltaTime;
-        float angle = RotationAngle * Mathf.Sin(2 * Mathf.PI * time / RotationPeriod);
-        transform.rotation = Quaternion.Euler(0, 0, InitAngle + angle);
+        if (curHitted)
+        {
+
+            if (curHitted.GetComponent<ReflectionController>())
+            {
+                curHitted.GetComponent<ReflectionController>().unHitted();
+                Debug.Log("Close the light");
+            }
+            else if (curHitted.GetComponent<PointController>())
+            {
+                curHitted.GetComponent<PointController>().unHitted();
+            }
+            else if (curHitted.GetComponent<ButtonController>())
+            {
+                curHitted.GetComponent<ButtonController>().unHitted();
+            }
+        }
+        curHitted = null;
     }
 
     //    private void reflectLaser(Vector2 StartPosition, Vector2 direction, RaycastHit2D Firsthit)

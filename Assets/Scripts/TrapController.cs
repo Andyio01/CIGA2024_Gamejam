@@ -34,7 +34,8 @@ public class TrapController : MonoBehaviour
         // #TODO 屏蔽玩家操作
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        DeadUI.enabled = true;
+        //DeadUI.enabled = true;
+        DeadUI.transform.Find("Panel").gameObject.SetActive(true);
         StartCoroutine(DeadAndRestore());
     }
 
@@ -53,7 +54,9 @@ public class TrapController : MonoBehaviour
             // 释放鼠标
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            DeadUI.enabled = false;
+            //DeadUI.enabled = false;
+            DeadUI.transform.Find("Panel").gameObject.SetActive(false);
+
 
         }
         );

@@ -23,6 +23,8 @@ public class ReflectionController : MonoBehaviour
     public float refractiveIndex2 = 1.5f; // 目标介质的折射率
     // 该点暂时未被击中
     private bool waitForHit = false;
+    // 入射光线是从上方还是下方射入
+    private bool underWater = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,14 +48,18 @@ public class ReflectionController : MonoBehaviour
             {
                 if(laser.curHitted){
                     if(laser.curHitted.GetComponent<ReflectionController>())
-                        {
+                    {
                             laser.curHitted.GetComponent<ReflectionController>().unHitted();
-                        }
-                        else if(laser.curHitted.GetComponent<PointController>())
-                        {
+                    }
+                    else if(laser.curHitted.GetComponent<PointController>())
+                    {
                             laser.curHitted.GetComponent<PointController>().unHitted();
-                        }
-                        laser.curHitted = null;
+                    }
+                    else if (laser.curHitted.GetComponent<ButtonController>())
+                    {
+                            laser.curHitted.GetComponent<ButtonController>().unHitted();
+                    }
+                    laser.curHitted = null;
                 }
             }
         }
@@ -66,10 +72,20 @@ public class ReflectionController : MonoBehaviour
                 if (LineManager.lineRenderers.Contains(RefractionPoint.GetComponentInChildren<LineRenderer>())) LineManager.DeleteLineRenderer(RefractionPoint.GetComponentInChildren<LineRenderer>());
                 ReflectionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
             }
-            // 如果是水面，开启反射和折射光线
+            // 如果是水面，根据入射光线判断
             else if (planeType == PlaneType.water){
-                ReflectionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
-                RefractionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
+                // 光线从水面上方射入，开启折射和反射
+                if (!underWater)
+                {
+                    ReflectionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
+                    RefractionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
+                }
+                // 光线从水下射入，只折射
+                else
+                {
+                    ReflectionPoint.GetComponentInChildren<LineRenderer>().enabled = false;
+                    RefractionPoint.GetComponentInChildren<LineRenderer>().enabled = true;
+                }
             }
             
             // GetComponentInChildren<LineRenderer>().enabled = true;
@@ -92,7 +108,7 @@ public class ReflectionController : MonoBehaviour
     // // private void OnCollisionEnter(Collision other) {
     // //     Debug.Log("Hited By:" + other.gameObject.name);
     // // }
-    public void hitByLaser(Vector2 refractDirection, Vector2 reflectDirection, Vector2 hitPoistion)
+    public void hitByLaser(Vector2 refractDirection, Vector2 reflectDirection, Vector2 hitPoistion, float dotProduct)
     {
         if(!isHit)
         {
@@ -107,20 +123,25 @@ public class ReflectionController : MonoBehaviour
                 ReflectionPoint.position = hitPoistion;
                 ReflectionPoint.right = reflectDirection;
             }
-            // 如果是水面，执行反射和折射
-            else if (planeType == PlaneType.water){
+            // 如果是水面且光线从上方来，执行反射和折射
+            else if (planeType == PlaneType.water && dotProduct < 0){
                 ReflectionPoint.position = hitPoistion;
                 ReflectionPoint.right = reflectDirection;
                 // 折射
                 RefractionPoint.position = hitPoistion;
                 RefractionPoint.right = refractDirection;
-
-
             }
-            
+            // 如果从水面下方来，只折射
+            else if (planeType == PlaneType.water && dotProduct >= 0)
+            {
+                
+                RefractionPoint.position = hitPoistion;
+                RefractionPoint.right = refractDirection;
+            }
+
             // if(!LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) 
             // LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
-            foreach(LineRenderer line in this.transform.GetComponentsInChildren<LineRenderer>())
+            foreach (LineRenderer line in this.transform.GetComponentsInChildren<LineRenderer>())
             {
                 if (!LineManager.lineRenderers.Contains(line)) LineManager.AddLineRenderer(line);
             }
