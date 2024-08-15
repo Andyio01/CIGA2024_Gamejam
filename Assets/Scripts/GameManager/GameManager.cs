@@ -4,8 +4,12 @@ using QZGameFramework.GFSceneManager;
 using QZGameFramework.UIManager;
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
-
+using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEngine.UI;
+using UnityEngine.Rendering;
 //using UnityEngine.InputSystem;
 
 /// <summary>
@@ -30,7 +34,9 @@ public class GameManager : MonoBehaviour
     public Texture2D DefaultCursor;
     public Texture2D DragCursor;
     public Texture2D InteractableCursor;
-
+    // private static bool isEnding = false;
+    // public GameObject globalVolume;
+    // public GameObject EndPanel;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitalizeGameManager()
@@ -118,4 +124,21 @@ public class GameManager : MonoBehaviour
     {
         return curEmitter;
     }
+
+    // public static void GameEnd()
+    // {
+    //     if (isEnding) return;
+    //     else
+    //     {
+    //         isEnding = true;
+    //         // PostProcessProfile profile = instance.GetComponent<PostProcessProfile>();
+    //         // Bloom bloom = profile.GetSetting<Bloom>();
+    //         // bloom.threshold.value = Mathf.Lerp(instance.globalVolume.GetComponent<Bloom>().threshold.value, 0f, 1.5f);
+    //         instance.EndPanel.GetComponent<Image>().DOColor(new Color(255, 255, 255, 255), 1.5f).OnComplete(() =>
+    //         {
+    //             SceneManager.LoadScene("EndScene");
+    //         });
+    //     }
+    //     // SceneManager.LoadScene("EndScene");
+    // }
 }

@@ -124,7 +124,8 @@ public class ReflectionController : MonoBehaviour
                 ReflectionPoint.right = reflectDirection;
             }
             // 如果是水面且光线从上方来，执行反射和折射
-            else if (planeType == PlaneType.water && dotProduct < 0){
+            else if (planeType == PlaneType.water && dotProduct >= 0){
+                underWater = false;
                 ReflectionPoint.position = hitPoistion;
                 ReflectionPoint.right = reflectDirection;
                 // 折射
@@ -132,9 +133,10 @@ public class ReflectionController : MonoBehaviour
                 RefractionPoint.right = refractDirection;
             }
             // 如果从水面下方来，只折射
-            else if (planeType == PlaneType.water && dotProduct >= 0)
+            else if (planeType == PlaneType.water && dotProduct < 0)
             {
-                
+                Debug.Log("Under Water");
+                underWater = true;
                 RefractionPoint.position = hitPoistion;
                 RefractionPoint.right = refractDirection;
             }
