@@ -28989,6 +28989,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   curHitted: {fileID: 0}
+  preHitted: {fileID: 0}
   EmissionPoint: {fileID: 2245916172420790979}
   startVFX: {fileID: 4619767448697643692}
   endVFX: {fileID: 7262637017850688631}
@@ -29081,7 +29082,7 @@ SpriteRenderer:
   m_SortingLayerID: -671701359
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 2af94bbc3cfa90844bfcb88f9c398e11, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f528150fa461ff34b916aec2fe0b940d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -29106,6 +29107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 0
   IsBlocker: 0
+  audioSource: {fileID: 0}
 --- !u!1 &4619767448697643692
 GameObject:
   m_ObjectHideFlags: 0

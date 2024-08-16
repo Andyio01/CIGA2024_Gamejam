@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Receiver
+  m_Name: Emitter
   m_Shader: {fileID: -6465566751694194690, guid: eefaa336440c67648885ad52f3532c1e, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f528150fa461ff34b916aec2fe0b940d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
@@ -43,5 +43,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Color: {r: 1.6055588, g: 1.6055588, b: 1.6055588, a: 1}
+    - _Color: {r: 1.3253083, g: 0.55846316, b: 0.6284359, a: 1}
   m_BuildTextureStacks: []

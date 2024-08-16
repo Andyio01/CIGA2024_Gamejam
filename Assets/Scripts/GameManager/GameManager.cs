@@ -88,11 +88,11 @@ public class GameManager : MonoBehaviour
         isShowGamePauseWindow = !isShowGamePauseWindow;
         if (isShowGamePauseWindow)
         {
-            UIManager.Instance.ShowWindow<GamePauseWindow>();
+            //UIManager.Instance.ShowWindow<GamePauseWindow>();
         }
         else
         {
-            UIManager.Instance.HideWindow<GamePauseWindow>();
+            //UIManager.Instance.HideWindow<GamePauseWindow>();
         }
     }
 

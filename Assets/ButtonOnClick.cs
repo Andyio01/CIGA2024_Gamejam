@@ -20,4 +20,12 @@ public class ButtonOnClick : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("BeginScene");
     }
+    public void LoadLevel01()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Level01");
+    }
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
