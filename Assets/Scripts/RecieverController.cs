@@ -21,6 +21,7 @@ public class RecieverController : MonoBehaviour
     public bool isEnding = false;
     public GameObject globalVolume;
     public Image EndPanel;
+    public AudioSource audioSource;
     void Start()
     {
         
@@ -43,6 +44,7 @@ public class RecieverController : MonoBehaviour
         Camera.main.transform.DOMove(NewCameraPoisition, 2f);
         if (NewEmitter)
         {
+            if (!audioSource.isPlaying) audioSource.Play();
             GameManager.setEmitter(NewEmitter);
             LineRenderer line = NewEmitter.GetComponentInChildren<LineRenderer>();
             NewEmitter.GetComponentInChildren<LaserController>().enabled = true;
@@ -58,10 +60,11 @@ public class RecieverController : MonoBehaviour
         {
             isEnding = true;
             Debug.Log("Game End");
+            if (!audioSource.isPlaying) audioSource.Play();
             // PostProcessProfile profile = globalVolume.GetComponent<PostProcessProfile>();
             // Bloom bloom = globalVolume.GetComponent<Bloom>();
             // bloom.threshold.value = Mathf.Lerp(bloom.threshold.value , 0f, 3f);
-            EndPanel.DOFade(1, 2f).OnComplete(() =>
+            EndPanel.DOFade(1, 4f).OnComplete(() =>
             {
                 SceneManager.LoadScene("EndScene");
             });

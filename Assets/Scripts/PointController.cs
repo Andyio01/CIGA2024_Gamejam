@@ -15,6 +15,7 @@ public class PointController : MonoBehaviour
     private bool waitForHit = false;
     // 初始点不会直接消失
     public bool isInitial;
+    public AudioSource audioSource;
     void Start()
     {
         
@@ -77,7 +78,7 @@ public class PointController : MonoBehaviour
             if(!isVanishing) StopAllCoroutines();
             // Debug.Log("Hit");
         }
-        isHit = false;
+        //isHit = false;
 
         
     }
@@ -88,7 +89,7 @@ public class PointController : MonoBehaviour
     // // }
     public void hitByLaser(LineRenderer line)
     {
-        
+        if (isHit) return;
         isHit = true;
         // GetComponentInChildren<LineRenderer>().enabled = true;
         // // 获取射线方向
@@ -98,6 +99,7 @@ public class PointController : MonoBehaviour
         this.GetComponentInChildren<MouseHover>().SetCurrentLine(line);
         if(!LineManager.lineRenderers.Contains(this.transform.GetComponentInChildren<LineRenderer>())) 
         LineManager.AddLineRenderer(this.transform.GetComponentInChildren<LineRenderer>());
+        if (gameObject.transform.tag != "Blocker" && !audioSource.isPlaying) audioSource.Play();
     }
 
     public void unHitted()

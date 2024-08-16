@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773813f844b863a4d93e0f4c8df3fd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserMaterial: {fileID: 0}
-  DeathAudio: {fileID: 0}
+  laserMaterial: {fileID: 2100000, guid: 8663f887a6738df4dbb67bc88db24bd9, type: 2}
+  DeathAudio: {fileID: 2764180959236215972}
   DeadUI: {fileID: 0}
 --- !u!82 &2764180959236215972
 AudioSource:

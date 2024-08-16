@@ -15,6 +15,7 @@ public class ButtonController : MonoBehaviour
     private bool isHitted = false;
     // 控制当前的激光是否能够二次触发机关
     public bool triggerAble = true;
+    public AudioSource audioSource;
     void Start()
     {
         if (Obstacle) StartPoisition = Obstacle.transform.position;
@@ -34,6 +35,7 @@ public class ButtonController : MonoBehaviour
         }
         
         isHitted = true;
+        if (!audioSource.isPlaying) audioSource.Play();
         GetComponent<SpriteRenderer>().DOColor(new Color(255, 240, 0, 255), 1f);
         if (NewEmitter)
         {

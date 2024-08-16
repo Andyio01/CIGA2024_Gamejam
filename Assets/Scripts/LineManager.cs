@@ -17,7 +17,9 @@ public class LineManager : MonoBehaviour
     // 测试用
     public GameObject testPointer;
     public GameObject testPreview;
-
+    public AudioSource audioSource;
+    public AudioClip Success;
+    public AudioClip Failed;
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +124,8 @@ public class LineManager : MonoBehaviour
                     Vector2 direction = (end - start).normalized;
                     if(currentPointer.GetComponentInChildren<MouseHover>().IsBlocker && GameManager.BlockerNum > 0 && line.gameObject.layer == LayerMask.NameToLayer("Point"))
                     {
+                        audioSource.clip = Success;
+                        if (!audioSource.isPlaying) audioSource.Play();
                         GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
                         newPonit.transform.right = direction;
                         LineRenderer newLine = newPonit.GetComponentInChildren<LineRenderer>();
@@ -134,6 +138,8 @@ public class LineManager : MonoBehaviour
                         // AddLineRenderer(newLine);
                     }
                     else if (!currentPointer.GetComponentInChildren<MouseHover>().IsBlocker && GameManager.DiffractionNum > 0){
+                        audioSource.clip = Success;
+                        if (!audioSource.isPlaying) audioSource.Play();
                         GameObject newPonit = Instantiate(currentPointer, ClosestPointOnLineSegment(mousePos, start, end), Quaternion.identity);
                         newPonit.transform.right = direction;
                         LineRenderer newLine = newPonit.GetComponentInChildren<LineRenderer>();
@@ -147,6 +153,8 @@ public class LineManager : MonoBehaviour
                     }
                     else
                     {
+                        audioSource.clip = Failed;
+                        if (!audioSource.isPlaying) audioSource.Play();
                         Debug.Log("剩余点数不足！" + "BlockerNum: " + GameManager.BlockerNum + "DiffractionNum: " + GameManager.DiffractionNum);
                         
                     }

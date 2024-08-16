@@ -13,6 +13,7 @@ public class TipFollow : MonoBehaviour
     public GameObject DiffractionPrefab;
     public GameObject DiffractionPreview;
     private bool isBlocker = true;
+    public AudioSource ChangePointSound;
     void Start()
     {
         if(isBlocker)
@@ -41,7 +42,7 @@ public class TipFollow : MonoBehaviour
         // 向前滚动切换Blocker
         if (scroll > 0f)
         {
-            
+            if(!ChangePointSound.isPlaying) ChangePointSound.Play();
             isBlocker = true;
             LineManager.ChangeCurrentPointer(BlockerPrefab, BlockerPreview);
             Debug.Log("滚轮向前, 当前prefab为: " + LineManager.currentPointer.name);
@@ -49,7 +50,7 @@ public class TipFollow : MonoBehaviour
         }
         else if (scroll < 0f)
         {
-            
+            if (!ChangePointSound.isPlaying) ChangePointSound.Play();
             isBlocker = false;
             LineManager.ChangeCurrentPointer(DiffractionPrefab, DiffractionPreview);
             Debug.Log("滚轮向后, 当前prefab为: " + LineManager.currentPointer.name);

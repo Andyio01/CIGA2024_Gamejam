@@ -290,12 +290,12 @@ public class LaserController : MonoBehaviour
                     Vector2 refractedDirection = new Vector2();
                     // 计算反射
                     Vector2 normal = hit.normal;
-                    Vector2 reflectDirection = Vector2.Reflect(direction.normalized, normal);
+                    Vector2 reflectDirection = Vector2.Reflect(direction, normal);
                     // 计算折射
                     float n1 = refractiveIndex1;
                     float n2 = refractiveIndex2;
 
-                    float cosI = -Vector3.Dot(normal, direction);
+                    float cosI = -Vector3.Dot(normal, direction.normalized);
                     float sinT2 = (n1 / n2) * (n1 / n2) * (1.0f - cosI * cosI);
                     if (sinT2 <= 1.0f)
                     {
@@ -305,8 +305,8 @@ public class LaserController : MonoBehaviour
                     // Logic for the reciever(win the game, show hidden object, etc.)
 
                     // 传入折射和反射角度并创建新的光线
-                    hit.transform.gameObject.GetComponent<ReflectionController>().hitByLaser(refractedDirection, reflectDirection, hit.point, -cosI);
-
+                    hit.transform.gameObject.GetComponent<ReflectionController>().hitByLaser(refractedDirection, reflectDirection, hit.point, normal);
+                    //Debug.Log("Direction:" + direction + "normal:" + normal + "Reflection:" + reflectDirection + "Dot: " + Vector2.Dot(normal, direction));
                 }
                 else if (hit.transform.gameObject.tag == "Trap")
                 {
@@ -328,6 +328,7 @@ public class LaserController : MonoBehaviour
                     linerenderer.positionCount++;
                     linerenderer.SetPosition(++i, endPosition);
                     hit.transform.gameObject.GetComponent<ButtonController>().hitByLaser();
+                    if (hit.transform.gameObject.GetComponent<RecieverController>()) hit.transform.gameObject.GetComponent<RecieverController>().hitByLaser();
                 }
                 // Hit the object that is not reflectable
 

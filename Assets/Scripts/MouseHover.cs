@@ -16,7 +16,7 @@ public class MouseHover : MonoBehaviour
     public static Texture2D DragCursor;
     public static Texture2D InteractableCursor;
     private bool isDestroying = false;
-
+    public AudioSource audioSource;
     
     void Start()
     {
@@ -120,6 +120,7 @@ public class MouseHover : MonoBehaviour
 
     IEnumerator PlayAndDestroy(float waitTime){
         isDestroying = true;
+        if (!audioSource.isPlaying) audioSource.Play();
         if(this.IsBlocker)
             {
                 GameManager.BlockerNum++;
